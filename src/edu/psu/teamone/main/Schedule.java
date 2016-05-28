@@ -1,7 +1,7 @@
 package edu.psu.teamone.main;
 
-import java.util.ArrayList;
+import java.util.Map;
 
 public class Schedule {
-	private ArrayList<Section> sections;
+	private Map<Section,Meeting> sections;
 }
