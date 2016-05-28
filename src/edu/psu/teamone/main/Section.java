@@ -5,9 +5,9 @@ import java.net.URI;
 public class Section {
 	private int id; // section id
 	private String name; // name
-	private String abbreviation; // course abbreviation ex)CMPSC 
+	private String abbreviation; // course abbreviation ex)CMPSC
 	private int number; // course Number
-	private URI bulletinURI; // web link to bulletin 
+	private URI bulletinURI; // web link to bulletin
 
 	public Section(String name, String abbreviation, int number, URI bulletinURI) {
 		this.name = name;
