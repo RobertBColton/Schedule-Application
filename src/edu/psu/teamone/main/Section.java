@@ -1,5 +1,11 @@
 package edu.psu.teamone.main;
 
-public class Section {
+import java.net.URI;
 
+public class Section {
+	private int id;
+	private String name;
+	private String abbreviation;
+	private int number;
+	private URI bulletinURI;
 }

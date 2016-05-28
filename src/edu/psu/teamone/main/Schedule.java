@@ -1,5 +1,7 @@
 package edu.psu.teamone.main;
 
-public class Schedule {
+import java.util.ArrayList;
 
+public class Schedule {
+	private ArrayList<Section> sections;
 }
