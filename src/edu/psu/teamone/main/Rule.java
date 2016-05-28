@@ -1,4 +1,4 @@
-package edu.psu.cmpsc.teamone;
+package edu.psu.teamone.main;
 
 public abstract class Rule {
 
