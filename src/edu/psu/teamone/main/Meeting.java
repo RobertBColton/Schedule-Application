@@ -1,8 +1,6 @@
 package edu.psu.teamone.main;
 
 import java.sql.Time;
-import java.time.DayOfWeek;
-import java.util.ArrayList;
 
 public class Meeting {
 	private boolean[] days = new boolean[7];
