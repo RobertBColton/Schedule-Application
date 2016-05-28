@@ -9,6 +9,14 @@ public class Schedule {
 		sections.put(section, meeting);
 	}
 
+	public boolean removeSection(Section section) {
+		if (sections.size() == 0) {
+			return false;
+		} else {
+			return sections.values().remove(section); // return true if success
+		}
+	}
+
 	public Map<Section, Meeting> getSections() {
 		return sections;
 	}
