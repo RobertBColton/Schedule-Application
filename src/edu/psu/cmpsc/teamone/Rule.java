@@ -1,4 +1,5 @@
 package edu.psu.cmpsc.teamone;
+
 public abstract class Rule {
 
 	// Represents a schedule that is impossible to
