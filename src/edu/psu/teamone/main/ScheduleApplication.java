@@ -8,5 +8,6 @@ public class ScheduleApplication {
 	public static void main(String[] args) {
 		mainFrame = new JFrame();
 		mainFrame.setVisible(true);
+		mainFrame.setSize(800, 600); // Change this in the future. 
 	}
 }

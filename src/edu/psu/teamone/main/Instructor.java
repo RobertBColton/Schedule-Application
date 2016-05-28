@@ -3,8 +3,8 @@ package edu.psu.teamone.main;
 import java.util.ArrayList;
 
 public class Instructor {
-	private int id; // user-assigned
-	private String name;
+	private int id; // instructor id
+	private String name; // instructor name
 	private ArrayList<String> disciplines;
 
 	Instructor(int id, String name, ArrayList<String> disciplines) {
@@ -28,4 +28,5 @@ public class Instructor {
 	public String getName() {
 		return name;
 	}
+
 }

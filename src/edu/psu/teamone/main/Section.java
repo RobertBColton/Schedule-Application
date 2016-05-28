@@ -3,11 +3,11 @@ package edu.psu.teamone.main;
 import java.net.URI;
 
 public class Section {
-	private int id; // auto-generated
-	private String name;
-	private String abbreviation;
-	private int number;
-	private URI bulletinURI;
+	private int id; // section id
+	private String name; // name
+	private String abbreviation; // course abbreviation ex)CMPSC 
+	private int number; // course Number
+	private URI bulletinURI; // web link to bulletin 
 
 	public Section(String name, String abbreviation, int number, URI bulletinURI) {
 		this.name = name;
