@@ -1,6 +1,5 @@
 package edu.psu.teamone.main;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
@@ -37,7 +36,12 @@ public abstract class Rule {
 				meetingList.add(scheduleEntry.getValue());
 			}
 			boolean checkConflicts = checkConflicts(meetingList);
-			return checkConflicts ? IMPOSSIBLE : 0;
+			int score = 0;
+			if (!checkConflicts) {
+				// 1 back-to-back schedule is 10 points
+				score += checkBacktoBack(meetingList) * 10;
+			}
+			return checkConflicts ? IMPOSSIBLE : score;
 		}
 
 		@SuppressWarnings("deprecation") // TODO: Use Calendar Class
@@ -65,6 +69,29 @@ public abstract class Rule {
 				}
 			}
 			return true;
+		}
+
+		@SuppressWarnings("deprecation")
+		private int checkBacktoBack(ArrayList<Meeting> meetingList) {
+			// Checks if there is any back to back schedule and how many
+			// PRECONDITION : The schedule does not conflict
+			int backCount = 0;
+			for (int i = 0; i < meetingList.size(); i++) {
+				// Go through all meetings and check any time conflicts
+				for (int j = i + 1; j < meetingList.size() - 1; j++) {
+					// Compare each meeting to all other meetings
+					if (meetingList.get(i).getDays() == meetingList.get(j).getDays()) {
+						// Class on same days
+						int compHourOneEnd = meetingList.get(i).getStopTime().getHours();
+						int compHourTwoStart = meetingList.get(j).getStartTime().getHours();
+						// Back to back schedule
+						if (compHourOneEnd == compHourTwoStart) {
+							backCount++;
+						}
+					}
+				}
+			}
+			return backCount;
 		}
 	}
 }
