@@ -46,7 +46,7 @@ public abstract class Rule {
 			return checkConflicts ? IMPOSSIBLE : score;
 		}
 
-		@SuppressWarnings("deprecation") // TODO: Use Calendar Class
+		@SuppressWarnings("deprecation") 
 		private boolean checkConflicts(ArrayList<Meeting> meetingList) {
 			// Checks if there is any conflicting class schedule
 			// Condition: Schedule 1 starts on or before Schedule 2 and Schedule
