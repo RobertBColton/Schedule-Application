@@ -1,6 +1,8 @@
 package edu.psu.teamone.main;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map.Entry;
 
 public abstract class Rule {
@@ -38,7 +40,7 @@ public abstract class Rule {
 			boolean checkConflicts = checkConflicts(meetingList);
 			int score = 0;
 			if (!checkConflicts) {
-				// 1 back-to-back schedule is 10 points
+				// each back-to-back schedule is 10 points
 				score += checkBacktoBack(meetingList) * 10;
 			}
 			return checkConflicts ? IMPOSSIBLE : score;
@@ -56,13 +58,17 @@ public abstract class Rule {
 					// Compare each meeting to all other meetings
 					if (meetingList.get(i).getDays() == meetingList.get(j).getDays()) {
 						// Class on same days
-						int compHourOneStart = meetingList.get(i).getStartTime().getHours();
-						int compHourOneEnd = meetingList.get(i).getStopTime().getHours();
-						int compHourTwoStart = meetingList.get(j).getStartTime().getHours();
-						if (compHourOneStart <= compHourTwoStart && compHourOneEnd > compHourTwoStart) {
-							// If one class starts before other class starts and
-							// ends after that class starts
-							// It means that the schedule conflicts.
+						Time compHourOneStart = meetingList.get(i).getStartTime();
+						Time compHourOneEnd = meetingList.get(i).getStopTime();
+						Time compHourTwoStart = meetingList.get(j).getStartTime();
+						if (compHourOneStart.compareTo(compHourTwoStart) <= 0
+								&& compHourOneEnd.compareTo(compHourTwoStart) > 1) {
+							// If Two Schedules have the same start time or
+							// If One Schedule starts before the another and
+							// ends on or after the another schedule's
+							// start time, schedule conflicts
+							// compHourOneEnd.compareTo(compHourTwoStart) == 0
+							// would mean that there is a back-to-back schedule
 							return false;
 						}
 					}
@@ -80,12 +86,12 @@ public abstract class Rule {
 				// Go through all meetings and check any time conflicts
 				for (int j = i + 1; j < meetingList.size() - 1; j++) {
 					// Compare each meeting to all other meetings
-					if (meetingList.get(i).getDays() == meetingList.get(j).getDays()) {
+					if (Arrays.equals(meetingList.get(i).getDays(), meetingList.get(j).getDays())) {
 						// Class on same days
-						int compHourOneEnd = meetingList.get(i).getStopTime().getHours();
-						int compHourTwoStart = meetingList.get(j).getStartTime().getHours();
-						// Back to back schedule
-						if (compHourOneEnd == compHourTwoStart) {
+						Time compHourOneEnd = meetingList.get(i).getStopTime();
+						Time compHourTwoStart = meetingList.get(j).getStartTime();
+						if (compHourOneEnd.compareTo(compHourTwoStart) == 0) {
+							// Back to back schedule
 							backCount++;
 						}
 					}
