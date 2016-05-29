@@ -10,11 +10,9 @@ public class Schedule {
 	}
 
 	public boolean removeSection(Section section) {
-		if (sections.size() == 0) {
-			return false;
-		} else {
-			return sections.values().remove(section); // return true if success
-		}
+		// If sections is null, false. Else try to remove section from sections
+		// and return result
+		return sections.size() == 0 ? false : sections.values().remove(section);
 	}
 
 	public Map<Section, Meeting> getSections() {
