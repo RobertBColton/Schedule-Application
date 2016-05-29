@@ -65,7 +65,7 @@ public abstract class Rule {
 								&& compHourOneEnd.compareTo(compHourTwoStart) > 1) {
 							// If Two Schedules have the same start time or
 							// If One Schedule starts before the another and
-							// ends on or after the another schedule's
+							// ends after the another schedule's
 							// start time, schedule conflicts
 							// compHourOneEnd.compareTo(compHourTwoStart) == 0
 							// would mean that there is a back-to-back schedule
