@@ -17,12 +17,40 @@ public abstract class Rule {
 	// fit schedule. A value of 0 indicates a perfect fit.
 	public abstract int getFitness(Schedule schedule);
 
-	public class SpecificRule extends Rule {
+	public class InstructorSchedule extends Rule {
 		// This operation returns a fitness score for the
 		// provided schedule. Higher values indicate a less
 		// fit schedule. A value of 0 indicates a perfect fit.
 		public int getFitness(Schedule schedule) {
-			return 0;
+			ArrayList<Meeting> meetingList = new ArrayList<Meeting>();
+			for (Entry<Section, Meeting> scheduleEntry : schedule.getSections().entrySet()) {
+				// Put all meeting in schedule to meetingList
+				meetingList.add(scheduleEntry.getValue());
+			}
+			// 1 back to back schedule = 10 points, 0 means perfect fit
+			return checkBacktoBack(meetingList) * 10;
+		}
+
+		private int checkBacktoBack(ArrayList<Meeting> meetingList) {
+			// Checks if there is any back to back schedule and how many
+			// PRECONDITION : The schedule does not conflict
+			int backCount = 0;
+			for (int i = 0; i < meetingList.size(); i++) {
+				// Go through all meetings and check any time conflicts
+				for (int j = i + 1; j < meetingList.size(); j++) {
+					// Compare each meeting to all other meetings
+					if (Arrays.equals(meetingList.get(i).getDays(), meetingList.get(j).getDays())) {
+						// Class on same days
+						Time compHourOneEnd = meetingList.get(i).getStopTime();
+						Time compHourTwoStart = meetingList.get(j).getStartTime();
+						if (compHourOneEnd.compareTo(compHourTwoStart) == 0) {
+							// Back to back schedule
+							backCount++;
+						}
+					}
+				}
+			}
+			return backCount;
 		}
 	}
 
@@ -38,12 +66,7 @@ public abstract class Rule {
 				meetingList.add(scheduleEntry.getValue());
 			}
 			boolean checkConflicts = checkConflicts(meetingList);
-			int score = 0;
-			if (!checkConflicts) {
-				// each back-to-back schedule is 10 points
-				score += checkBacktoBack(meetingList) * 10;
-			}
-			return checkConflicts ? IMPOSSIBLE : score;
+			return !checkConflicts ? IMPOSSIBLE : 0;
 		}
 
 		private boolean checkConflicts(ArrayList<Meeting> meetingList) {
@@ -53,7 +76,7 @@ public abstract class Rule {
 			// TODO: Use Calendar and include minutes
 			for (int i = 0; i < meetingList.size(); i++) {
 				// Go through all meetings and check any time conflicts
-				for (int j = i + 1; j < meetingList.size() - 1; j++) {
+				for (int j = i + 1; j < meetingList.size(); j++) {
 					// Compare each meeting to all other meetings
 					if (meetingList.get(i).getDays() == meetingList.get(j).getDays()) {
 						// Class on same days
@@ -74,28 +97,6 @@ public abstract class Rule {
 				}
 			}
 			return true;
-		}
-
-		private int checkBacktoBack(ArrayList<Meeting> meetingList) {
-			// Checks if there is any back to back schedule and how many
-			// PRECONDITION : The schedule does not conflict
-			int backCount = 0;
-			for (int i = 0; i < meetingList.size(); i++) {
-				// Go through all meetings and check any time conflicts
-				for (int j = i + 1; j < meetingList.size() - 1; j++) {
-					// Compare each meeting to all other meetings
-					if (Arrays.equals(meetingList.get(i).getDays(), meetingList.get(j).getDays())) {
-						// Class on same days
-						Time compHourOneEnd = meetingList.get(i).getStopTime();
-						Time compHourTwoStart = meetingList.get(j).getStartTime();
-						if (compHourOneEnd.compareTo(compHourTwoStart) == 0) {
-							// Back to back schedule
-							backCount++;
-						}
-					}
-				}
-			}
-			return backCount;
 		}
 	}
 }
