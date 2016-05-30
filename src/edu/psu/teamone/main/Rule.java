@@ -73,7 +73,6 @@ public abstract class Rule {
 			// Checks if there is any conflicting class schedule
 			// Condition: Schedule 1 starts on or before Schedule 2 and Schedule
 			// 1 Ends after Schedule 2 Starts
-			// TODO: Use Calendar and include minutes
 			for (int i = 0; i < meetingList.size(); i++) {
 				// Go through all meetings and check any time conflicts
 				for (int j = i + 1; j < meetingList.size(); j++) {
@@ -97,6 +96,52 @@ public abstract class Rule {
 				}
 			}
 			return true;
+		}
+	}
+
+	public class InstructorHours extends Rule {
+		@Override
+		// This checks if the instructor is working too much
+		// Returns 0 if weekly lecture hour <= 40
+		// Returns IMPOSSIBLE if weekly lecture hour > 40
+		// TODO: Change hourLimit in the future
+		public int getFitness(Schedule schedule) {
+			ArrayList<Meeting> meetingList = new ArrayList<Meeting>();
+			for (Entry<Section, Meeting> scheduleEntry : schedule.getSections().entrySet()) {
+				// Put all meeting in schedule to meetingList
+				meetingList.add(scheduleEntry.getValue());
+			}
+			Time totalHours = getTotalHours(meetingList);
+			return totalHours.getHours() <= 40 ? 0 : IMPOSSIBLE;
+		}
+
+		private Time getTotalHours(ArrayList<Meeting> meetingList) {
+			int totalHours = 0;
+			int totalMinutes = 0;
+			for (Meeting meeting : meetingList) {
+				// Sum up all durations of classes in meeting
+				Time tempTime = getDuration(meeting);
+				totalHours += tempTime.getHours();
+				totalMinutes += tempTime.getMinutes();
+			}
+			if (totalMinutes >= 60) {
+				// Convert minutes to hours if minutes exceed 59
+				totalHours += totalMinutes / 60;
+				totalMinutes = totalMinutes % 60;
+			}
+			return new Time(totalHours, totalMinutes, 0);
+		}
+
+		private Time getDuration(Meeting meeting) {
+			// This Calculates the duration of a
+			// meeting and returns that Time
+			Time time1 = meeting.getStartTime();
+			Time time2 = meeting.getStopTime();
+			// Eclipse says getHours() is deprecated why?
+			// ignore seconds who cares
+			int hourDifference = time2.getHours() - time1.getHours();
+			int minuteDifference = time2.getMinutes() - time1.getHours();
+			return new Time(hourDifference, minuteDifference, 0);
 		}
 	}
 }
