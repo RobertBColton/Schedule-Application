@@ -1,9 +1,11 @@
 package edu.psu.teamone.main;
 
 import java.net.URI;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Section {
-	private int id; // section id
+	private static final AtomicInteger seq = new AtomicInteger();
+	private final int id = seq.incrementAndGet(); // section id (auto-generated)
 	private String name; // name
 	private String abbreviation; // course abbreviation ex)CMPSC
 	private int number; // course Number
