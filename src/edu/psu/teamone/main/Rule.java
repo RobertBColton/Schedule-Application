@@ -46,7 +46,6 @@ public abstract class Rule {
 			return checkConflicts ? IMPOSSIBLE : score;
 		}
 
-		@SuppressWarnings("deprecation") 
 		private boolean checkConflicts(ArrayList<Meeting> meetingList) {
 			// Checks if there is any conflicting class schedule
 			// Condition: Schedule 1 starts on or before Schedule 2 and Schedule
@@ -77,7 +76,6 @@ public abstract class Rule {
 			return true;
 		}
 
-		@SuppressWarnings("deprecation")
 		private int checkBacktoBack(ArrayList<Meeting> meetingList) {
 			// Checks if there is any back to back schedule and how many
 			// PRECONDITION : The schedule does not conflict
