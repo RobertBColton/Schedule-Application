@@ -8,12 +8,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.TabPane;
 
 public class Controller implements Initializable {
-
 	@FXML
-	private StackPane sceneStack;
+	private TabPane tabPane;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

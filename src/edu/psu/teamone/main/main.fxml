@@ -51,7 +51,7 @@
 	</VBox>
 	</top>
 	<center>
-		<TabPane>
+		<TabPane fx:id="tabPane">
 			<Tab text="Classes">
 
 			</Tab>
