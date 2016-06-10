@@ -20,7 +20,7 @@ public class ScheduleApplication extends Application {
 		final Parent root = FXMLLoader.load(getClass().getResource("main.fxml"),
 				ResourceBundle.getBundle("edu.psu.teamone.main.messages"));
 
-		primaryStage.setTitle("Urika");
+		primaryStage.setTitle("Schedule Application");
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 	}
