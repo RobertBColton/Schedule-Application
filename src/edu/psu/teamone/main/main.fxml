@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.Color?>
+
+<BorderPane fx:controller="edu.psu.teamone.main.Controller" xmlns:fx="http://javafx.com/fxml">
+	<top>
+	<VBox id="vbox">
+		<MenuBar fx:id="menuBar">
+			<menus>
+				<Menu text="%fileButton">
+					<items>
+						<MenuItem text="%newButton" accelerator="%newButton.accelerator"/>
+						<MenuItem fx:id="openButton" text="%openButton"
+							accelerator="%openButton.accelerator"/>
+						<MenuItem text="%saveButton" accelerator="%saveButton.accelerator"/>
+						<MenuItem text="%saveAsButton" accelerator="%saveAsButton.accelerator"/>
+						<SeparatorMenuItem/>
+						<MenuItem text="%exitButton" onAction="#handleExitAction"/>
+					</items>
+				</Menu>
+				<Menu text="%editButton">
+					<items>
+						<MenuItem text="%cutButton" accelerator="%cutButton.accelerator"/>
+						<MenuItem text="%copyButton" accelerator="%copyButton.accelerator"/>
+						<MenuItem text="%pasteButton" accelerator="%pasteButton.accelerator"/>
+					</items>
+				</Menu>
+				<Menu text="%helpButton">
+					<items>
+						<MenuItem text="%documentationButton" accelerator="F1"/>
+						<MenuItem text="%websiteButton"/>
+						<SeparatorMenuItem/>
+						<MenuItem text="%aboutButton" onAction="#handleAboutAction"/>
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+		<ToolBar>
+			<Button fx:id="newButton">
+				<tooltip>
+					<Tooltip text="%newButton"/>
+				</tooltip>
+			</Button>
+		</ToolBar>
+	</VBox>
+	</top>
+	<center>
+		<TabPane fx:id="tabPane">
+			<Tab text="Classes">
+
+			</Tab>
+			<Tab text="Instructors">
+
+			</Tab>
+			<Tab text="Schedules">
+
+			</Tab>
+		</TabPane>
+	</center>
+	<bottom>
+		<FlowPane id="statusBar" fx:id="statusBar">
+		</FlowPane>
+	</bottom>
+</BorderPane>
