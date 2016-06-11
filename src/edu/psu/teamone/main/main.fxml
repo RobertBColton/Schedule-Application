@@ -1,67 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.Color?>
 
-<BorderPane prefHeight="437.0" prefWidth="549.0"
-	xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
-	fx:controller="edu.psu.teamone.main.Controller">
-	<bottom>
-		<FlowPane fx:id="statusBar" />
-	</bottom>
+<BorderPane fx:controller="edu.psu.teamone.main.Controller" xmlns:fx="http://javafx.com/fxml">
+	<top>
+	<VBox id="vbox">
+		<MenuBar fx:id="menuBar">
+			<menus>
+				<Menu text="%fileButton">
+					<items>
+						<MenuItem text="%newButton" accelerator="%newButton.accelerator"/>
+						<MenuItem fx:id="openButton" text="%openButton"
+							accelerator="%openButton.accelerator"/>
+						<MenuItem text="%saveButton" accelerator="%saveButton.accelerator"/>
+						<MenuItem text="%saveAsButton" accelerator="%saveAsButton.accelerator"/>
+						<SeparatorMenuItem/>
+						<MenuItem text="%exitButton" onAction="#handleExitAction"/>
+					</items>
+				</Menu>
+				<Menu text="%editButton">
+					<items>
+						<MenuItem text="%cutButton" accelerator="%cutButton.accelerator"/>
+						<MenuItem text="%copyButton" accelerator="%copyButton.accelerator"/>
+						<MenuItem text="%pasteButton" accelerator="%pasteButton.accelerator"/>
+					</items>
+				</Menu>
+				<Menu text="%helpButton">
+					<items>
+						<MenuItem text="%documentationButton" accelerator="F1"/>
+						<MenuItem text="%websiteButton"/>
+						<SeparatorMenuItem/>
+						<MenuItem text="%aboutButton" onAction="#handleAboutAction"/>
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+		<ToolBar>
+			<Button fx:id="newButton">
+				<tooltip>
+					<Tooltip text="%newButton"/>
+				</tooltip>
+			</Button>
+		</ToolBar>
+	</VBox>
+	</top>
 	<center>
 		<TabPane fx:id="tabPane">
-			<Tab text="Classes" />
-			<Tab text="Instructors" />
-			<Tab text="Schedules" />
+			<Tab text="Classes">
+
+			</Tab>
+			<Tab text="Instructors">
+
+			</Tab>
+			<Tab text="Schedules">
+
+			</Tab>
 		</TabPane>
 	</center>
-	<top>
-		<VBox id="vbox">
-			<MenuBar fx:id="menuBar">
-				<menus>
-					<Menu text="%fileButton">
-						<items>
-							<MenuItem text="%newButton" />
-							<MenuItem text="%openButton" fx:id="openButton" />
-							<MenuItem text="%saveButton" />
-							<MenuItem text="%saveAsButton" />
-							<SeparatorMenuItem />
-							<MenuItem onAction="#handleExitAction" text="%exitButton" />
-						</items>
-					</Menu>
-					<Menu text="%editButton">
-						<items>
-							<MenuItem text="%cutButton" />
-							<MenuItem text="%copyButton" />
-							<MenuItem text="%pasteButton" />
-						</items>
-					</Menu>
-					<Menu text="%helpButton">
-						<items>
-							<MenuItem onAction="#handleDocAction" accelerator="F1"
-								text="%documentationButton" />
-							<MenuItem onAction="#handleWebAction" accelerator="F5"
-								text="%websiteButton" />
-							<SeparatorMenuItem />
-							<MenuItem onAction="#handleAboutAction" text="%aboutButton" />
-						</items>
-					</Menu>
-				</menus>
-			</MenuBar>
-			<ToolBar>
-				<Button fx:id="newButton">
-					<tooltip>
-						<Tooltip text="%newButton" />
-					</tooltip>
-				</Button>
-			</ToolBar>
-		</VBox>
-	</top>
+	<bottom>
+		<FlowPane id="statusBar" fx:id="statusBar">
+		</FlowPane>
+	</bottom>
 </BorderPane>
