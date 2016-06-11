@@ -23,7 +23,6 @@ public class Controller implements Initializable {
 	private TabPane tabPane;
 	@FXML
 	private WebView web;
-
 	@FXML
 	private StackPane root;
 
@@ -53,7 +52,6 @@ public class Controller implements Initializable {
 		Stage stage = new Stage();
 		stage.setTitle("WebSite");
 		viewWebSite(stage);
-		stage.showAndWait();
 	}
 
 	@FXML
@@ -64,7 +62,7 @@ public class Controller implements Initializable {
 		alert.showAndWait();
 	}
 
-	public void viewWebSite(final Stage stage) {
+	private void viewWebSite(final Stage stage) {
 		// Load Website
 		String webLink = "http://google.com"; // Change this link later
 		stage.setWidth(830);
