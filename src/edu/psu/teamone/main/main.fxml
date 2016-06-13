@@ -50,7 +50,7 @@
 	</top>
 	<center>
 		<TabPane fx:id="tabPane">
-			<Tab text="sectionsTab">
+			<Tab text="%sectionsTab">
 				<TableView>
 					<columnResizePolicy>
 						<TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
@@ -64,7 +64,7 @@
 					</columns>
 				</TableView>
 			</Tab>
-			<Tab text="instructorsTab">
+			<Tab text="%instructorsTab">
 				<TableView>
 					<columnResizePolicy>
 						<TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
@@ -75,7 +75,7 @@
 					</columns>
 				</TableView>
 			</Tab>
-			<Tab text="schedulesTab">
+			<Tab text="%schedulesTab">
 				<TableView>
 					<columnResizePolicy>
 						<TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
