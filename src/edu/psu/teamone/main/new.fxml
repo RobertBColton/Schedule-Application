@@ -5,25 +5,33 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="212.0" prefWidth="233.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<BorderPane prefHeight="176.0" prefWidth="233.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <!-- TODO Add Nodes -->
   <center>
-    <Pane prefHeight="208.0" prefWidth="220.0">
+    <VBox prefHeight="180.0" prefWidth="233.0">
       <children>
-        <Button layoutX="14.0" layoutY="179.0" mnemonicParsing="false" prefWidth="93.0" text="Add" />
-        <Button cancelButton="true" layoutX="121.0" layoutY="179.0" mnemonicParsing="false" prefWidth="93.0" text="Cancel" />
-        <TextField layoutX="14.0" layoutY="15.0" prefWidth="200.0" promptText="Name:" />
-        <TextField layoutX="14.0" layoutY="37.0" prefWidth="200.0" promptText="Abbreviation:" />
-        <TextField layoutX="14.0" layoutY="59.0" prefWidth="200.0" promptText="Number:" />
-        <TextField layoutX="14.0" layoutY="81.0" prefWidth="200.0" promptText="BulletinURI:" />
-        <TextField layoutX="14.0" layoutY="103.0" prefWidth="200.0" promptText="Start Time:" />
-        <TextField layoutX="14.0" layoutY="125.0" prefWidth="200.0" promptText="EndTime:" />
-        <CheckBox layoutX="14.0" layoutY="150.0" mnemonicParsing="false" text="M" />
-        <CheckBox layoutX="55.0" layoutY="150.0" mnemonicParsing="false" text="T" />
-        <CheckBox layoutX="96.0" layoutY="150.0" mnemonicParsing="false" text="W" />
-        <CheckBox layoutX="136.0" layoutY="150.0" mnemonicParsing="false" text="TH" />
-        <CheckBox layoutX="177.0" layoutY="150.0" mnemonicParsing="false" text="F" />
+        <TextField prefWidth="200.0" promptText="Name:" />
+        <TextField prefWidth="200.0" promptText="Abbreviation:" />
+        <TextField prefWidth="200.0" promptText="Number:" />
+        <TextField prefWidth="200.0" promptText="BulletinURI:" />
+        <TextField prefWidth="200.0" promptText="Start Time:" />
+        <TextField prefWidth="200.0" promptText="EndTime:" />
+        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="233.0" spacing="21.0" VBox.vgrow="NEVER">
+          <children>
+            <CheckBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="M" HBox.hgrow="ALWAYS" />
+            <CheckBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="T" HBox.hgrow="ALWAYS" />
+            <CheckBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="W" HBox.hgrow="ALWAYS" />
+            <CheckBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="R" HBox.hgrow="ALWAYS" />
+            <CheckBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="F" HBox.hgrow="ALWAYS" />
+          </children>
+        </HBox>
+        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="233.0" spacing="2.0">
+          <children>
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="112.0" text="Add Section" HBox.hgrow="ALWAYS" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="119.0" text="Cancel" HBox.hgrow="ALWAYS" />
+          </children>
+        </HBox>
       </children>
-    </Pane>
+    </VBox>
   </center>
 </BorderPane>
