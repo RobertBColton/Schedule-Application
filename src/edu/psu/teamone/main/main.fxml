@@ -8,7 +8,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.paint.Color?>
 
-<BorderPane fx:controller="edu.psu.teamone.main.Controller" xmlns:fx="http://javafx.com/fxml">
+<BorderPane prefWidth="800.0" prefHeight="600.0" fx:controller="edu.psu.teamone.main.Controller" xmlns:fx="http://javafx.com/fxml">
 	<top>
 	<VBox id="vbox">
 		<MenuBar fx:id="menuBar">
