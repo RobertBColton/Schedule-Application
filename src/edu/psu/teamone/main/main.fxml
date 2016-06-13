@@ -9,8 +9,8 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
 
-<<<<<<< HEAD
-<BorderPane prefWidth="800.0" prefHeight="600.0" fx:controller="edu.psu.teamone.main.Controller" xmlns:fx="http://javafx.com/fxml">
+<BorderPane prefWidth="800.0" prefHeight="600.0" fx:controller="edu.psu.teamone.main.Controller"
+		xmlns:fx="http://javafx.com/fxml">
 	<top>
 	<VBox id="vbox">
 		<MenuBar fx:id="menuBar">
@@ -88,19 +88,6 @@
 					</columns>
 				</TableView>
 			</Tab>
-=======
-<BorderPane prefHeight="437.0" prefWidth="549.0"
-	xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
-	fx:controller="edu.psu.teamone.main.Controller">
-	<bottom>
-		<FlowPane fx:id="statusBar" />
-	</bottom>
-	<center>
-		<TabPane fx:id="tabPane">
-			<Tab text="Classes" />
-			<Tab text="Instructors" />
-			<Tab text="Schedules" />
->>>>>>> d34ccda584a8cdec560be3d2bbcacf0280844643
 		</TabPane>
 	</center>
 	<top>
