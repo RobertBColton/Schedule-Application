@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.*?>
 
+<<<<<<< HEAD
 <BorderPane prefWidth="800.0" prefHeight="600.0" fx:controller="edu.psu.teamone.main.Controller" xmlns:fx="http://javafx.com/fxml">
 	<top>
 	<VBox id="vbox">
@@ -86,10 +88,61 @@
 					</columns>
 				</TableView>
 			</Tab>
+=======
+<BorderPane prefHeight="437.0" prefWidth="549.0"
+	xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2"
+	fx:controller="edu.psu.teamone.main.Controller">
+	<bottom>
+		<FlowPane fx:id="statusBar" />
+	</bottom>
+	<center>
+		<TabPane fx:id="tabPane">
+			<Tab text="Classes" />
+			<Tab text="Instructors" />
+			<Tab text="Schedules" />
+>>>>>>> d34ccda584a8cdec560be3d2bbcacf0280844643
 		</TabPane>
 	</center>
-	<bottom>
-		<FlowPane id="statusBar" fx:id="statusBar">
-		</FlowPane>
-	</bottom>
+	<top>
+		<VBox id="vbox">
+			<MenuBar fx:id="menuBar">
+				<menus>
+					<Menu text="%fileButton">
+						<items>
+							<MenuItem text="%newButton" />
+							<MenuItem text="%openButton" fx:id="openButton" />
+							<MenuItem text="%saveButton" />
+							<MenuItem text="%saveAsButton" />
+							<SeparatorMenuItem />
+							<MenuItem onAction="#handleExitAction" text="%exitButton" />
+						</items>
+					</Menu>
+					<Menu text="%editButton">
+						<items>
+							<MenuItem text="%cutButton" />
+							<MenuItem text="%copyButton" />
+							<MenuItem text="%pasteButton" />
+						</items>
+					</Menu>
+					<Menu text="%helpButton">
+						<items>
+							<MenuItem onAction="#handleDocAction" accelerator="F1"
+								text="%documentationButton" />
+							<MenuItem onAction="#handleWebAction" accelerator="F5"
+								text="%websiteButton" />
+							<SeparatorMenuItem />
+							<MenuItem onAction="#handleAboutAction" text="%aboutButton" />
+						</items>
+					</Menu>
+				</menus>
+			</MenuBar>
+			<ToolBar>
+				<Button fx:id="newButton">
+					<tooltip>
+						<Tooltip text="%newButton" />
+					</tooltip>
+				</Button>
+			</ToolBar>
+		</VBox>
+	</top>
 </BorderPane>
