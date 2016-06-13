@@ -7,22 +7,14 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 
 public class Controller implements Initializable {
 	@FXML
 	private TabPane tabPane;
-	@FXML
-	private WebView web;
 	@FXML
 	private StackPane root;
 
@@ -48,34 +40,13 @@ public class Controller implements Initializable {
 
 	@FXML
 	protected final void handleWebAction(ActionEvent event) {
-		// Shows Website
-		Stage stage = new Stage();
-		stage.setTitle("WebSite");
-		viewWebSite(stage);
+		ScheduleApplication.getStaticHostServices().showDocument(
+			"https://github.com/CMPSC221/Schedule-Application");
 	}
 
 	@FXML
 	protected final void handleDocAction(ActionEvent event) {
-		// Show Documentation here
-		final Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Sample Document");
-		alert.showAndWait();
+		ScheduleApplication.getStaticHostServices().showDocument(
+			"https://github.com/CMPSC221/Schedule-Application");
 	}
-
-	private void viewWebSite(final Stage stage) {
-		// Load Website
-		String webLink = "http://google.com"; // Change this link later
-		stage.setWidth(830);
-		stage.setHeight(650);
-		Scene scene = new Scene(new Group());
-		final WebView browser = new WebView();
-		final WebEngine webEngine = browser.getEngine();
-		ScrollPane scrollPane = new ScrollPane();
-		scrollPane.setContent(browser);
-		webEngine.load(webLink);
-		scene.setRoot(scrollPane);
-		stage.setScene(scene);
-		stage.show();
-	}
-
 }

@@ -35,10 +35,13 @@
 				</Menu>
 				<Menu text="%helpButton">
 					<items>
-						<MenuItem text="%documentationButton" accelerator="F1"/>
-						<MenuItem text="%websiteButton"/>
-						<SeparatorMenuItem/>
-						<MenuItem text="%aboutButton" onAction="#handleAboutAction"/>
+						<MenuItem onAction="#handleDocAction"
+							accelerator="%documentationButton.accelerator"
+							text="%documentationButton" />
+						<MenuItem onAction="#handleWebAction"
+							accelerator="%websiteButton.accelerator" text="%websiteButton" />
+						<SeparatorMenuItem />
+						<MenuItem onAction="#handleAboutAction" text="%aboutButton" />
 					</items>
 				</Menu>
 			</menus>
@@ -90,46 +93,4 @@
 			</Tab>
 		</TabPane>
 	</center>
-	<top>
-		<VBox id="vbox">
-			<MenuBar fx:id="menuBar">
-				<menus>
-					<Menu text="%fileButton">
-						<items>
-							<MenuItem text="%newButton" />
-							<MenuItem text="%openButton" fx:id="openButton" />
-							<MenuItem text="%saveButton" />
-							<MenuItem text="%saveAsButton" />
-							<SeparatorMenuItem />
-							<MenuItem onAction="#handleExitAction" text="%exitButton" />
-						</items>
-					</Menu>
-					<Menu text="%editButton">
-						<items>
-							<MenuItem text="%cutButton" />
-							<MenuItem text="%copyButton" />
-							<MenuItem text="%pasteButton" />
-						</items>
-					</Menu>
-					<Menu text="%helpButton">
-						<items>
-							<MenuItem onAction="#handleDocAction" accelerator="F1"
-								text="%documentationButton" />
-							<MenuItem onAction="#handleWebAction" accelerator="F5"
-								text="%websiteButton" />
-							<SeparatorMenuItem />
-							<MenuItem onAction="#handleAboutAction" text="%aboutButton" />
-						</items>
-					</Menu>
-				</menus>
-			</MenuBar>
-			<ToolBar>
-				<Button fx:id="newButton">
-					<tooltip>
-						<Tooltip text="%newButton" />
-					</tooltip>
-				</Button>
-			</ToolBar>
-		</VBox>
-	</top>
 </BorderPane>
