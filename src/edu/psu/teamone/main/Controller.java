@@ -1,16 +1,23 @@
 package edu.psu.teamone.main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Controller implements Initializable {
 	@FXML
@@ -40,13 +47,25 @@ public class Controller implements Initializable {
 
 	@FXML
 	protected final void handleWebAction(ActionEvent event) {
-		ScheduleApplication.getStaticHostServices().showDocument(
-			"https://github.com/CMPSC221/Schedule-Application");
+		ScheduleApplication.getStaticHostServices().showDocument("https://github.com/CMPSC221/Schedule-Application");
 	}
 
 	@FXML
 	protected final void handleDocAction(ActionEvent event) {
-		ScheduleApplication.getStaticHostServices().showDocument(
-			"https://github.com/CMPSC221/Schedule-Application");
+		ScheduleApplication.getStaticHostServices().showDocument("https://github.com/CMPSC221/Schedule-Application");
+	}
+
+	@FXML
+	protected final void handleNewAction(ActionEvent event) {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("new.fxml"));
+			Parent root1 = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root1));
+			stage.setTitle("Add Section");
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

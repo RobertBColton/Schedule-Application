@@ -9,88 +9,77 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefWidth="800.0" prefHeight="600.0" fx:controller="edu.psu.teamone.main.Controller"
-		xmlns:fx="http://javafx.com/fxml">
-	<top>
-	<VBox id="vbox">
-		<MenuBar fx:id="menuBar">
-			<menus>
-				<Menu text="%fileButton">
-					<items>
-						<MenuItem text="%newButton" accelerator="%newButton.accelerator"/>
-						<MenuItem fx:id="openButton" text="%openButton"
-							accelerator="%openButton.accelerator"/>
-						<MenuItem text="%saveButton" accelerator="%saveButton.accelerator"/>
-						<MenuItem text="%saveAsButton" accelerator="%saveAsButton.accelerator"/>
-						<SeparatorMenuItem/>
-						<MenuItem text="%exitButton" onAction="#handleExitAction"/>
-					</items>
-				</Menu>
-				<Menu text="%editButton">
-					<items>
-						<MenuItem text="%cutButton" accelerator="%cutButton.accelerator"/>
-						<MenuItem text="%copyButton" accelerator="%copyButton.accelerator"/>
-						<MenuItem text="%pasteButton" accelerator="%pasteButton.accelerator"/>
-					</items>
-				</Menu>
-				<Menu text="%helpButton">
-					<items>
-						<MenuItem onAction="#handleDocAction"
-							accelerator="%documentationButton.accelerator"
-							text="%documentationButton" />
-						<MenuItem onAction="#handleWebAction"
-							accelerator="%websiteButton.accelerator" text="%websiteButton" />
-						<SeparatorMenuItem />
-						<MenuItem onAction="#handleAboutAction" text="%aboutButton" />
-					</items>
-				</Menu>
-			</menus>
-		</MenuBar>
-		<ToolBar>
-			<Button fx:id="newButton" text="%newButton"/>
-			<Button fx:id="openButton" text="%openButton"/>
-			<Button fx:id="saveButton" text="%saveButton"/>
-		</ToolBar>
-	</VBox>
-	</top>
-	<center>
-		<TabPane fx:id="tabPane">
-			<Tab text="%sectionsTab">
-				<TableView>
-					<columnResizePolicy>
-						<TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-					</columnResizePolicy>
-					<columns>
-						<TableColumn text="%id"/>
-						<TableColumn text="%name"/>
-						<TableColumn text="%abbreviation"/>
-						<TableColumn text="%number"/>
-						<TableColumn text="%bulletinURI"/>
-					</columns>
-				</TableView>
-			</Tab>
-			<Tab text="%instructorsTab">
-				<TableView>
-					<columnResizePolicy>
-						<TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-					</columnResizePolicy>
-					<columns>
-						<TableColumn text="%id"/>
-						<TableColumn text="%name"/>
-					</columns>
-				</TableView>
-			</Tab>
-			<Tab text="%schedulesTab">
-				<TableView>
-					<columnResizePolicy>
-						<TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-					</columnResizePolicy>
-					<columns>
-						<TableColumn text="%section"/>
-						<TableColumn text="%meeting"/>
-					</columns>
-				</TableView>
-			</Tab>
-		</TabPane>
-	</center>
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="edu.psu.teamone.main.Controller">
+  <center>
+    <TabPane fx:id="tabPane">
+      <Tab text="%sectionsTab">
+        <TableView>
+          <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" fx:id="x1" />
+          </columnResizePolicy>
+          <columns>
+            <TableColumn text="%id" />
+            <TableColumn text="%name" />
+            <TableColumn text="%abbreviation" />
+            <TableColumn text="%number" />
+            <TableColumn text="%bulletinURI" />
+          </columns>
+        </TableView>
+      </Tab>
+      <Tab text="%instructorsTab">
+        <TableView columnResizePolicy="$x1">
+          <columns>
+            <TableColumn text="%id" />
+            <TableColumn text="%name" />
+          </columns>
+        </TableView>
+      </Tab>
+      <Tab text="%schedulesTab">
+        <TableView columnResizePolicy="$x1">
+          <columns>
+            <TableColumn text="%section" />
+            <TableColumn text="%meeting" />
+          </columns>
+        </TableView>
+      </Tab>
+    </TabPane>
+  </center>
+  <top>
+    <VBox id="vbox">
+      <MenuBar fx:id="menuBar">
+        <menus>
+          <Menu text="%fileButton">
+            <items>
+              <MenuItem text="%newButton" />
+              <MenuItem text="%openButton" fx:id="openButton" />
+              <MenuItem text="%saveButton" />
+              <MenuItem text="%saveAsButton" />
+              <SeparatorMenuItem />
+              <MenuItem onAction="#handleExitAction" text="%exitButton" />
+            </items>
+          </Menu>
+          <Menu text="%editButton">
+            <items>
+              <MenuItem text="%cutButton" />
+              <MenuItem text="%copyButton" />
+              <MenuItem text="%pasteButton" />
+            </items>
+          </Menu>
+          <Menu text="%helpButton">
+            <items>
+              <MenuItem onAction="#handleDocAction" text="%documentationButton" />
+              <MenuItem onAction="#handleWebAction" text="%websiteButton" />
+              <SeparatorMenuItem />
+              <MenuItem onAction="#handleAboutAction" text="%aboutButton" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ToolBar>
+        <Button fx:id="newButton" text="%newButton" onAction="#handleNewAction"/>
+        <Button fx:id="openButton" text="%openButton" />
+        <Button fx:id="saveButton" text="%saveButton" />
+      </ToolBar>
+    </VBox>
+  </top>
 </BorderPane>
