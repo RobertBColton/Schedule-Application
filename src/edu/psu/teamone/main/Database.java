@@ -22,7 +22,6 @@ public class Database {
 
 			con = DriverManager.getConnection(url, user, password);
 			st = con.createStatement();
-			//ResultSet  = st.executeQuery("SELECT COUNT(*) FROM classes");
 			// Add classes to db
 			// Ex) 100000, Mec
 			String command = String.format("INSERT INTO classes VALUES ('%d', '%s', '%s')", courseId, courseName,

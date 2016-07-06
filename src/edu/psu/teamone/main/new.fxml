@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="176.0" prefWidth="233.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <!-- TODO Add Nodes -->
+  <center>
+    <VBox prefHeight="180.0" prefWidth="233.0">
+      <children>
+        <TextField prefWidth="200.0" promptText="Name:" />
+        <TextField prefWidth="200.0" promptText="Abbreviation:" />
+        <TextField prefWidth="200.0" promptText="Number:" />
+        <TextField prefWidth="200.0" promptText="BulletinURI:" />
+        <TextField prefWidth="200.0" promptText="Start Time:" />
+        <TextField prefWidth="200.0" promptText="EndTime:" />
+        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="233.0" spacing="21.0" VBox.vgrow="NEVER">
+          <children>
+            <CheckBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="M" HBox.hgrow="ALWAYS" />
+            <CheckBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="T" HBox.hgrow="ALWAYS" />
+            <CheckBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="W" HBox.hgrow="ALWAYS" />
+            <CheckBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="R" HBox.hgrow="ALWAYS" />
+            <CheckBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="F" HBox.hgrow="ALWAYS" />
+          </children>
+        </HBox>
+        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="233.0" spacing="2.0">
+          <children>
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="112.0" text="Add Section" HBox.hgrow="ALWAYS" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="119.0" text="Cancel" HBox.hgrow="ALWAYS" />
+          </children>
+        </HBox>
+      </children>
+    </VBox>
+  </center>
+</BorderPane>
