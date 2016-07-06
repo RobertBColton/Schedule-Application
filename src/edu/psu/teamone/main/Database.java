@@ -27,7 +27,7 @@ public class Database {
 			String command = String.format("INSERT INTO classes VALUES ('%d', '%s', '%s')", courseId, courseName,
 					courseAbb);
 			st.executeUpdate(command);
-
+			st.close();
 		} catch (SQLException ex) {
 
 			Logger lgr = Logger.getLogger(Database.class.getName());
