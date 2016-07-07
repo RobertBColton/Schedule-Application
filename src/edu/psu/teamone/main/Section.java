@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Section {
 	private static final AtomicInteger seq = new AtomicInteger();
-	private final int id = seq.incrementAndGet(); // section id (auto-generated)
+	private final int id; //= seq.incrementAndGet(); // section id (auto-generated)
 	private String name; // name
 	private String abbreviation; // course abbreviation ex)CMPSC
 	private int number; // course Number
@@ -14,7 +14,7 @@ public class Section {
 	public Section(String name, String abbreviation, int number) {
 		this.name = name;
 		this.abbreviation = abbreviation;
-		this.number = number;
+		this.id = number;
 		//this.bulletinURI = bulletinURI;
 	}
 
