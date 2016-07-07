@@ -11,11 +11,11 @@ public class Section {
 	private int number; // course Number
 	private URI bulletinURI; // web link to bulletin
 
-	public Section(String name, String abbreviation, int number) {
+	public Section(String name, String abbreviation, int number, URI bulletinURI) {
 		this.name = name;
 		this.abbreviation = abbreviation;
 		this.number = number;
-		//this.bulletinURI = bulletinURI;
+		this.bulletinURI = bulletinURI;
 	}
 
 	public void setName(String name) {
