@@ -4,6 +4,9 @@ import java.util.Map;
 
 public class Schedule {
 	private Map<Section, Meeting> sections;
+	public Schedule(){
+		
+	}
 
 	public void addSection(Section section, Meeting meeting) {
 		sections.put(section, meeting);
