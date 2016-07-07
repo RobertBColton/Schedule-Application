@@ -3,7 +3,7 @@ package edu.psu.teamone.main;
 import java.sql.Time;
 
 public class Meeting {
-	private boolean[] days = new boolean[7];
+	private boolean[] days = new boolean[5];
 	private Time startTime;
 	private Time stopTime;
 
