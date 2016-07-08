@@ -254,7 +254,7 @@ public class Database {
 	}
 
 	ArrayList<Meeting> getDataFromDBMeeting() {
-		//loads all rows from meetings table in db
+		// loads all rows from meetings table in db
 		try {
 			con = DriverManager.getConnection(url, user, password);
 			st = con.createStatement();
@@ -308,7 +308,8 @@ public class Database {
 	}
 
 	void deleteSection(int sectionId) {
-		// deletes sectionId corresponding class and meeting from classes and meetings table in db
+		// deletes sectionId corresponding class and meeting from classes and
+		// meetings table in db
 		try {
 
 			con = DriverManager.getConnection(url, user, password);
@@ -413,8 +414,12 @@ public class Database {
 			while (sectionRS2.next()) {
 				if (sectionRS2.getString(1).toString().equals(Integer.toString(sectionId))) {
 					sectionRS2.updateString("start time", editSectionStartTime);
-					sectionRS2.updateRow();
 					sectionRS2.updateString("end time", editSectionEndTime);
+					sectionRS2.updateBoolean("M", Boolean.parseBoolean(Character.toString(days.charAt(0))));
+					sectionRS2.updateBoolean("T", Boolean.parseBoolean(Character.toString(days.charAt(1))));
+					sectionRS2.updateBoolean("W", Boolean.parseBoolean(Character.toString(days.charAt(2))));
+					sectionRS2.updateBoolean("TR", Boolean.parseBoolean(Character.toString(days.charAt(3))));
+					sectionRS2.updateBoolean("F", Boolean.parseBoolean(Character.toString(days.charAt(4))));
 					sectionRS2.updateRow();
 				}
 			}
@@ -543,7 +548,8 @@ public class Database {
 	}
 
 	public ArrayList<String> getRowData(int sectionId) {
-		// loads sectionId corresponding row from sections and meetings table in db
+		// loads sectionId corresponding row from sections and meetings table in
+		// db
 		try {
 			String sectionName, sectionAbb, sectionStartTime, sectionEndTime, days = "";
 			con = DriverManager.getConnection(url, user, password);
