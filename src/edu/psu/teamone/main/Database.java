@@ -415,11 +415,11 @@ public class Database {
 				if (sectionRS2.getString(1).toString().equals(Integer.toString(sectionId))) {
 					sectionRS2.updateString("start time", editSectionStartTime);
 					sectionRS2.updateString("end time", editSectionEndTime);
-					sectionRS2.updateBoolean("M", Boolean.parseBoolean(Character.toString(days.charAt(0))));
-					sectionRS2.updateBoolean("T", Boolean.parseBoolean(Character.toString(days.charAt(1))));
-					sectionRS2.updateBoolean("W", Boolean.parseBoolean(Character.toString(days.charAt(2))));
-					sectionRS2.updateBoolean("TR", Boolean.parseBoolean(Character.toString(days.charAt(3))));
-					sectionRS2.updateBoolean("F", Boolean.parseBoolean(Character.toString(days.charAt(4))));
+					sectionRS2.updateString("M", Character.toString(days.charAt(0)));
+					sectionRS2.updateString("T", Character.toString(days.charAt(1)));
+					sectionRS2.updateString("W", Character.toString(days.charAt(2)));
+					sectionRS2.updateString("TR", Character.toString(days.charAt(3)));
+					sectionRS2.updateString("F", Character.toString(days.charAt(4)));
 					sectionRS2.updateRow();
 				}
 			}
