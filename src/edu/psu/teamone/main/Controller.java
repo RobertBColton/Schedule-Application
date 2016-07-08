@@ -159,9 +159,11 @@ public class Controller implements Initializable {
 		// Load Data Button Action
 		// Loads all sections and meetings from db to arraylist
 		Database db = new Database();
-		ArrayList<Section> sections = new ArrayList<Section>();
-		ArrayList<Meeting> meetings = new ArrayList<Meeting>();
-		db.getDataFromDB(sections, meetings);
+		ArrayList<Section> sections = db.getDataFromDBSection();
+		ArrayList<Meeting> meetings = db.getDataFromDBMeeting();
+		//db.getDataFromDB(sections, meetings);
+		System.out.println(sections.size());
+		System.out.println(meetings.size());
 	}
 
 	@FXML
