@@ -75,7 +75,7 @@
               <TextField fx:id="instructorName" layoutX="91.0" layoutY="246.0" prefWidth="618.0" promptText="Name:" />
               <TextField fx:id="instructorDiscipline" layoutX="91.0" layoutY="266.0" prefWidth="618.0" promptText="Discipline:" />
               <TextField fx:id="instructorId" layoutX="91.0" layoutY="288.0" prefWidth="618.0" promptText="User Id:" />
-              <Button id="Add" layoutX="91.0" layoutY="310.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="22.0" prefWidth="618.0" text="%addInstructor" wrapText="false" />
+              <Button id="Add" layoutX="91.0" layoutY="310.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addInstructorAction" prefHeight="22.0" prefWidth="618.0" text="%addInstructor" wrapText="false" />
             </children>
           </Pane>
         </content>
@@ -118,15 +118,15 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                 </rowConstraints>
               </GridPane>
-              <TextField id="instructorName" layoutX="91.0" layoutY="246.0" prefWidth="618.0" promptText="Name:" />
-              <TextField id="instructorDiscipline" layoutX="91.0" layoutY="266.0" prefWidth="618.0" promptText="Discipline:" />
-              <TextField id="instructorId" layoutX="91.0" layoutY="288.0" prefWidth="618.0" promptText="User Id:" />
-              <Button id="Add" layoutX="91.0" layoutY="310.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="22.0" prefWidth="618.0" text="%editInstructor" wrapText="false" />
+              <TextField id="instructorName" fx:id="editInstructorName" layoutX="91.0" layoutY="246.0" prefWidth="618.0" promptText="Name:" />
+              <TextField id="instructorDiscipline" fx:id="editInstructorDiscipline" layoutX="91.0" layoutY="266.0" prefWidth="618.0" promptText="Discipline:" />
+              <Button id="Add" layoutX="91.0" layoutY="288.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editInstructorAction" prefHeight="22.0" prefWidth="311.0" text="%editInstructor" wrapText="false" />
               <TextField id="sectionName" fx:id="editSectionId" layoutX="90.0" layoutY="15.0" prefWidth="311.0" promptText="SectionId To Edit:" />
               <TextField id="sectionName" fx:id="editSectionName" layoutX="89.0" layoutY="37.0" prefWidth="618.0" promptText="Name:" />
               <Button layoutX="411.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadSectionAction" prefWidth="296.0" text="Load" />
-              <TextField id="sectionName" layoutX="91.0" layoutY="224.0" prefWidth="311.0" promptText="User Id To Edit:" />
-              <Button layoutX="411.0" layoutY="224.0" mnemonicParsing="false" prefWidth="296.0" text="Load" />
+              <TextField id="sectionName" fx:id="editInstructorId" layoutX="91.0" layoutY="223.0" prefWidth="311.0" promptText="User Id To Edit:" />
+              <Button layoutX="411.0" layoutY="223.0" mnemonicParsing="false" onAction="#loadInstructorAction" prefWidth="296.0" text="Load" />
+              <Button id="Add" layoutX="417.0" layoutY="288.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteInstructorAction" prefHeight="22.0" prefWidth="284.0" text="%deleteSection" wrapText="false" />
             </children>
           </Pane>
         </content>
