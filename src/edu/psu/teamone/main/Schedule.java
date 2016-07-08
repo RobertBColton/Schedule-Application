@@ -1,11 +1,16 @@
 package edu.psu.teamone.main;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Schedule {
-	private Map<Section, Meeting> sections;
-	public Schedule(){
-		
+	private Map<Section, Meeting> sections = new HashMap<Section, Meeting>();
+	private ArrayList<String> convertedSection = new ArrayList<String>();
+
+	public Schedule() {
+
 	}
 
 	public void addSection(Section section, Meeting meeting) {
@@ -20,5 +25,14 @@ public class Schedule {
 
 	public Map<Section, Meeting> getSections() {
 		return sections;
+	}
+
+	public void printSections() {
+		for (Entry<Section, Meeting> entry : sections.entrySet()) {
+			boolean days[] = entry.getValue().getDays();
+			System.out.println(entry.getKey().getId() + " " + entry.getKey().getName() + " "
+					+ entry.getKey().getAbbreviation() + " " + entry.getValue().getStartTime() + " "
+					+ entry.getValue().getStopTime() + " " + days[0] + days[1] + days[2] + days[3] + days[4]);
+		}
 	}
 }
