@@ -90,15 +90,16 @@
                     <children>
                       <HBox layoutX="193.0" layoutY="3.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="233.0" spacing="21.0">
                         <children>
-                          <CheckBox id="dayTues" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="T" HBox.hgrow="ALWAYS" />
-                          <CheckBox id="dayWed" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="W" HBox.hgrow="ALWAYS" />
-                          <CheckBox id="dayThur" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="21.9998779296875" prefWidth="29.0" text="R" HBox.hgrow="ALWAYS" />
-                          <CheckBox id="dayFri" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="F" HBox.hgrow="ALWAYS" />
+                          <CheckBox id="dayTues" fx:id="editDayTues" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="T" HBox.hgrow="ALWAYS" />
+                          <CheckBox id="dayWed" fx:id="editDayWed" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="W" HBox.hgrow="ALWAYS" />
+                          <CheckBox id="dayThur" fx:id="editDayThur" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="21.9998779296875" prefWidth="29.0" text="R" HBox.hgrow="ALWAYS" />
+                          <CheckBox id="dayFri" fx:id="editDayFri" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="F" HBox.hgrow="ALWAYS" />
                         </children>
                       </HBox>
                       <VBox id="VBox" alignment="CENTER" layoutX="114.0" layoutY="132.0" spacing="5.0" />
-                      <CheckBox id="dayMon" layoutX="129.0" layoutY="6.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="M" />
-                      <Button id="Add" layoutX="0.0" layoutY="29.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addSectionAction" prefHeight="22.0" prefWidth="618.0" text="%editSection" wrapText="false" />
+                      <CheckBox id="dayMon" fx:id="editDayMon" layoutX="129.0" layoutY="6.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="M" />
+                      <Button id="Add" layoutX="1.0" layoutY="29.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editSectionAction" prefHeight="22.0" prefWidth="321.0" text="%editSection" wrapText="false" />
+                      <Button id="Add" layoutX="334.0" layoutY="29.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteSectionAction" prefHeight="22.0" prefWidth="284.0" text="%deleteSection" wrapText="false" />
                     </children>
                   </AnchorPane>
                   <TextField id="sectionAbb" fx:id="editSectionAbb" prefWidth="618.0" promptText="Abbreviation:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
@@ -121,9 +122,9 @@
               <TextField id="instructorDiscipline" layoutX="91.0" layoutY="266.0" prefWidth="618.0" promptText="Discipline:" />
               <TextField id="instructorId" layoutX="91.0" layoutY="288.0" prefWidth="618.0" promptText="User Id:" />
               <Button id="Add" layoutX="91.0" layoutY="310.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="22.0" prefWidth="618.0" text="%editInstructor" wrapText="false" />
-              <TextField id="sectionName" fx:id="editSectionId" layoutX="89.0" layoutY="14.0" prefWidth="311.0" promptText="SectionId To Edit:" />
+              <TextField id="sectionName" fx:id="editSectionId" layoutX="90.0" layoutY="15.0" prefWidth="311.0" promptText="SectionId To Edit:" />
               <TextField id="sectionName" fx:id="editSectionName" layoutX="89.0" layoutY="37.0" prefWidth="618.0" promptText="Name:" />
-              <Button layoutX="411.0" layoutY="14.0" mnemonicParsing="false" prefWidth="296.0" text="Load" />
+              <Button layoutX="411.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadSectionAction" prefWidth="296.0" text="Load" />
               <TextField id="sectionName" layoutX="91.0" layoutY="224.0" prefWidth="311.0" promptText="User Id To Edit:" />
               <Button layoutX="411.0" layoutY="224.0" mnemonicParsing="false" prefWidth="296.0" text="Load" />
             </children>

@@ -27,6 +27,11 @@ public class Controller implements Initializable {
 	@FXML
 	private CheckBox dayMon, dayTues, dayWed, dayThur, dayFri;// MTWRF
 	@FXML
+	private CheckBox editDayMon, editDayTues, editDayWed, editDayThur, editDayFri;// MTWRF
+																					// on
+																					// EditInformation
+																					// Tab
+	@FXML
 	private TextField instructorName, instructorDiscipline, instructorId;
 	@FXML
 	private TextField editSectionId, editSectionName, editSectionAbb, editSectionStartTime, editSectionEndTime;
@@ -66,8 +71,92 @@ public class Controller implements Initializable {
 	}
 
 	@FXML
+	protected final void deleteSectionAction(ActionEvent event) {
+		Database db = new Database();
+		int sectionId = Integer.parseInt(editSectionId.getText().trim());
+		db.deleteSection(sectionId);
+		resetArea();
+	}
+
+	@FXML
+	protected final void editSectionAction(ActionEvent event) {
+		System.out.println("test");
+		// resetArea();
+	}
+
+	@FXML
+	protected final void loadSectionAction(ActionEvent event) {
+		editDayMon.setSelected(false);
+		editDayTues.setSelected(false);
+		editDayWed.setSelected(false);
+		editDayThur.setSelected(false);
+		editDayFri.setSelected(false);
+		Database db = new Database();
+		ArrayList<String> sectionData = new ArrayList<String>();
+		String sectionName = "", sectionAbb = "", sectionStartTime = "", sectionEndTime = "", days = "";
+		if (editSectionId.getText().trim().equals("") || editSectionId.getText().trim().matches(".*[a-zA-z]+.*")) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Invalid Input");
+			alert.setContentText("Cannot use numbers for sectionId");
+			alert.showAndWait();
+		} else {
+			sectionData = db.getRowData(Integer.parseInt(editSectionId.getText().trim()));
+		}
+		sectionName = sectionData.get(0);// Course Name
+		sectionAbb = sectionData.get(1); // Course Abb
+		sectionStartTime = sectionData.get(2); // Course StartTime
+		sectionEndTime = sectionData.get(3); // Course EndTime
+		days = sectionData.get(4); // Course days
+		editSectionName.setText(sectionName);
+		editSectionAbb.setText(sectionAbb);
+		editSectionStartTime.setText(sectionStartTime);
+		editSectionEndTime.setText(sectionEndTime);
+		if (days.charAt(0) == '1') {
+			editDayMon.setSelected(true);
+		}
+		if (days.charAt(1) == '1') {
+			editDayTues.setSelected(true);
+		}
+		if (days.charAt(2) == '1') {
+			editDayWed.setSelected(true);
+		}
+		if (days.charAt(3) == '1') {
+			editDayThur.setSelected(true);
+		}
+		if (days.charAt(4) == '1') {
+			editDayFri.setSelected(true);
+		}
+	}
+
+	protected void resetArea() {
+		editDayMon.setSelected(false);
+		editDayTues.setSelected(false);
+		editDayWed.setSelected(false);
+		editDayThur.setSelected(false);
+		editDayFri.setSelected(false);
+
+		dayMon.setSelected(false);
+		dayTues.setSelected(false);
+		dayWed.setSelected(false);
+		dayThur.setSelected(false);
+		dayFri.setSelected(false);
+
+		editSectionId.setText("");
+		editSectionName.setText("");
+		editSectionAbb.setText("");
+		editSectionStartTime.setText("");
+		editSectionEndTime.setText("");
+
+		sectionName.setText("");
+		sectionAbb.setText("");
+		startTime.setText("");
+		endTime.setText("");
+	}
+
+	@FXML
 	protected final void loadSections(ActionEvent event) {
-		//Load Data Button Action
+		// Load Data Button Action
 		// Loads all sections and meetings from db to arraylist
 		Database db = new Database();
 		ArrayList<Section> sections = new ArrayList<Section>();
@@ -142,5 +231,6 @@ public class Controller implements Initializable {
 			alert.setContentText("Successfully Added a new course");
 			alert.showAndWait();
 		}
+		resetArea();
 	}
 }
