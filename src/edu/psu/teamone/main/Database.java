@@ -250,6 +250,7 @@ public class Database {
 		}
 		return null;
 	}
+
 	ArrayList<Meeting> getDataFromDBMeeting() {
 		try {
 			con = DriverManager.getConnection(url, user, password);
@@ -303,7 +304,6 @@ public class Database {
 		return null;
 	}
 
-
 	void deleteSection(int sectionId) {
 
 		try {
@@ -317,8 +317,63 @@ public class Database {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Success");
 			alert.setHeaderText("Deleted Success");
-			alert.setContentText("Delete section " +  sectionId + " successful");
+			alert.setContentText("Delete section " + sectionId + " successful");
 			alert.showAndWait();
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(Database.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+		} finally {
+			// close db connection
+			try {
+
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (st != null) {
+					st.close();
+				}
+
+				if (con != null) {
+					con.close();
+				}
+
+			} catch (SQLException ex) {
+
+				Logger lgr = Logger.getLogger(Database.class.getName());
+				lgr.log(Level.WARNING, ex.getMessage(), ex);
+			}
+		}
+	}
+
+	void editSection(int sectionId, String editSectionName, String editSectionAbb, String editSectionStartTime,
+			String editSectionEndTime, String days) {
+		try {
+			con = DriverManager.getConnection(url, user, password);
+			Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			Statement stmt2 = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			String command = String.format("SELECT * FROM classes");
+			String command2 = String.format("SELECT * FROM meetings");
+			ResultSet sectionRS = stmt.executeQuery(command);
+			ResultSet sectionRS2 = stmt2.executeQuery(command2);
+			while (sectionRS.next()) {
+				if (sectionRS.getString(1).toString().equals(Integer.toString(sectionId))) {
+					sectionRS.updateString("course name", editSectionName);
+					sectionRS.updateRow();
+					sectionRS.updateString("course abbreviation", editSectionAbb);
+					sectionRS.updateRow();
+				}
+			}
+			while (sectionRS2.next()) {
+				if (sectionRS2.getString(1).toString().equals(Integer.toString(sectionId))) {
+					sectionRS2.updateString("start time", editSectionStartTime);
+					sectionRS2.updateRow();
+					sectionRS2.updateString("end time", editSectionEndTime);
+					sectionRS2.updateRow();
+				}
+			}
+
 		} catch (SQLException ex) {
 			Logger lgr = Logger.getLogger(Database.class.getName());
 			lgr.log(Level.SEVERE, ex.getMessage(), ex);
