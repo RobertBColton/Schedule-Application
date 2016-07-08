@@ -111,7 +111,7 @@ public class Controller implements Initializable {
 			alert.setHeaderText("Error");
 			alert.setContentText("Check your boxes!");
 			alert.showAndWait();
-		} else if (editSectionName.matches(".*\\d+.*") || editSectionAbb.matches(".*\\d+.*")) {
+		} else if (editSectionName.matches(".*\\d+.*")) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Error");
 			alert.setHeaderText("Error");
