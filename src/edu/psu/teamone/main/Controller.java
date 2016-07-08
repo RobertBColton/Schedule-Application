@@ -112,8 +112,7 @@ public class Controller implements Initializable {
 			alert.setHeaderText("Error");
 			alert.setContentText("Check your boxes!");
 			alert.showAndWait();
-		} else if (editSectionName.matches(".*\\d+.*") || editSectionAbb.matches(".*\\d+.*")
-				|| editSectionStartTime.matches(".*[a-zA-z]+.*") || editSectionEndTime.matches(".*[a-zA-z]+.*")) {
+		} else if (editSectionName.matches(".*\\d+.*") || editSectionAbb.matches(".*\\d+.*")) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Error");
 			alert.setHeaderText("Error");
