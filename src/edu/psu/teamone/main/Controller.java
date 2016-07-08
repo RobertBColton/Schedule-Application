@@ -42,6 +42,9 @@ public class Controller implements Initializable {
 	private TableView sectionsTable;
 	@FXML
 	private TableColumn id, name, abbreviation, Time, Days;
+	private ArrayList<Section> sections; // sections to be loaded from db
+	private ArrayList<Meeting> meetings; // meetings to be loaded from db
+	private Schedule schedule;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -65,13 +68,13 @@ public class Controller implements Initializable {
 
 	@FXML
 	protected final void handleWebAction(ActionEvent event) {
-		//Shows github page
+		// Shows github page
 		ScheduleApplication.getStaticHostServices().showDocument("https://github.com/CMPSC221/Schedule-Application");
 	}
 
 	@FXML
 	protected final void handleDocAction(ActionEvent event) {
-		//Shows github page
+		// Shows github page
 		ScheduleApplication.getStaticHostServices().showDocument("https://github.com/CMPSC221/Schedule-Application");
 	}
 
@@ -86,7 +89,7 @@ public class Controller implements Initializable {
 
 	@FXML
 	protected final void deleteInstructorAction(ActionEvent event) {
-		//Deletes user selected Instructor from db
+		// Deletes user selected Instructor from db
 		Database db = new Database();
 		int instructorId = Integer.parseInt(editInstructorId.getText().trim());
 		db.deleteInstructor(instructorId);
@@ -227,11 +230,31 @@ public class Controller implements Initializable {
 		// Load Data Button Action
 		// Loads all sections and meetings from db to arraylist
 		Database db = new Database();
-		ArrayList<Section> sections = db.getDataFromDBSection();
-		ArrayList<Meeting> meetings = db.getDataFromDBMeeting();
+		sections = db.getDataFromDBSection();
+		meetings = db.getDataFromDBMeeting();
 		// db.getDataFromDB(sections, meetings);
-		System.out.println(sections.size());
-		System.out.println(meetings.size());
+		// System.out.println(sections.size());
+		// System.out.println(meetings.size());
+		/*
+		for (int i = 0; i < sections.size(); i++) {
+			System.out.println(sections.get(i).getName() + " " + sections.get(i).getAbbreviation() + " "
+					+ sections.get(i).getId() + " ");
+			boolean days[] = meetings.get(i).getDays();
+			System.out.println(meetings.get(i).getStartTime() + " " + meetings.get(i).getStopTime() + " " + days[0]
+					+ days[1] + days[2] + days[3] + days[4]);
+		}
+		*/
+	}
+
+	@FXML
+	protected final void createSchedule(ActionEvent event) {
+
+		Schedule temp = new Schedule();
+		for (int i = 0; i < sections.size(); i++) {
+			temp.addSection(sections.get(i), meetings.get(i));
+		}
+		temp.printSections();
+
 	}
 
 	@FXML
@@ -337,7 +360,7 @@ public class Controller implements Initializable {
 	}
 
 	protected void resetArea() {
-		// empty out all text box and check box on fx 
+		// empty out all text box and check box on fx
 		editDayMon.setSelected(false);
 		editDayTues.setSelected(false);
 		editDayWed.setSelected(false);
