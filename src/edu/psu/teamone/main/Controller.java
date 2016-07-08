@@ -3,6 +3,9 @@ package edu.psu.teamone.main;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -80,8 +83,21 @@ public class Controller implements Initializable {
 
 	@FXML
 	protected final void editSectionAction(ActionEvent event) {
-		System.out.println("test");
-		// resetArea();
+		Database db = new Database();
+		int sectionId = Integer.parseInt(this.editSectionId.getText().trim());
+		String editSectionName = this.editSectionName.getText().trim();
+		String editSectionAbb = this.editSectionAbb.getText().trim();
+		String editSectionStartTime = this.editSectionStartTime.getText().trim();
+		String editSectionEndTime = this.editSectionEndTime.getText().trim();
+		String days = (editDayMon.isSelected() ? "1" : "0") + (editDayTues.isSelected() ? "1" : "0") + (editDayWed.isSelected() ? "1" : "0") 
+				+ (editDayThur.isSelected() ? "1" : "0") + (editDayFri.isSelected() ? "1" : "0");
+		db.editSection(sectionId, editSectionName, editSectionAbb, editSectionStartTime, editSectionEndTime, days);
+		resetArea();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Success");
+		alert.setHeaderText("Edit Success");
+		alert.setContentText("Succesfully Updated Section " +sectionId );
+		alert.showAndWait();
 	}
 
 	@FXML
@@ -161,7 +177,7 @@ public class Controller implements Initializable {
 		Database db = new Database();
 		ArrayList<Section> sections = db.getDataFromDBSection();
 		ArrayList<Meeting> meetings = db.getDataFromDBMeeting();
-		//db.getDataFromDB(sections, meetings);
+		// db.getDataFromDB(sections, meetings);
 		System.out.println(sections.size());
 		System.out.println(meetings.size());
 	}
