@@ -132,6 +132,7 @@
             <items>
               <MenuItem text="%newButton" />
               <MenuItem onAction="#loadSections" text="%loadDataButton" />
+              <MenuItem onAction="#createSchedule" text="%createScheduleButton" />
               <MenuItem text="%saveButton" />
               <MenuItem text="%saveAsButton" />
               <SeparatorMenuItem />
