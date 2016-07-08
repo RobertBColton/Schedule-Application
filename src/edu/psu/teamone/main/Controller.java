@@ -105,8 +105,7 @@ public class Controller implements Initializable {
 		String days = (editDayMon.isSelected() ? "1" : "0") + (editDayTues.isSelected() ? "1" : "0")
 				+ (editDayWed.isSelected() ? "1" : "0") + (editDayThur.isSelected() ? "1" : "0")
 				+ (editDayFri.isSelected() ? "1" : "0");
-		if (editSectionName == "" || editSectionAbb == "" || editSectionStartTime == "" || editSectionEndTime == ""
-				|| days == "") {
+		if (editSectionName == "" || editSectionAbb == "") {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Error");
 			alert.setHeaderText("Error");
