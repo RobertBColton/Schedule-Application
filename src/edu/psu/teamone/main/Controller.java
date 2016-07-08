@@ -31,11 +31,11 @@ public class Controller implements Initializable {
 	private CheckBox dayMon, dayTues, dayWed, dayThur, dayFri;// MTWRF
 	@FXML
 	private CheckBox editDayMon, editDayTues, editDayWed, editDayThur, editDayFri;// MTWRF
-																					// on
-																					// EditInformation
-																					// Tab
+
 	@FXML
 	private TextField instructorName, instructorDiscipline, instructorId;
+	@FXML
+	private TextField editInstructorName, editInstructorDiscipline, editInstructorId;
 	@FXML
 	private TextField editSectionId, editSectionName, editSectionAbb, editSectionStartTime, editSectionEndTime;
 	@FXML
@@ -65,16 +65,19 @@ public class Controller implements Initializable {
 
 	@FXML
 	protected final void handleWebAction(ActionEvent event) {
+		//Shows github page
 		ScheduleApplication.getStaticHostServices().showDocument("https://github.com/CMPSC221/Schedule-Application");
 	}
 
 	@FXML
 	protected final void handleDocAction(ActionEvent event) {
+		//Shows github page
 		ScheduleApplication.getStaticHostServices().showDocument("https://github.com/CMPSC221/Schedule-Application");
 	}
 
 	@FXML
 	protected final void deleteSectionAction(ActionEvent event) {
+		// Deletes user selected section from db
 		Database db = new Database();
 		int sectionId = Integer.parseInt(editSectionId.getText().trim());
 		db.deleteSection(sectionId);
@@ -82,26 +85,83 @@ public class Controller implements Initializable {
 	}
 
 	@FXML
+	protected final void deleteInstructorAction(ActionEvent event) {
+		//Deletes user selected Instructor from db
+		Database db = new Database();
+		int instructorId = Integer.parseInt(editInstructorId.getText().trim());
+		db.deleteInstructor(instructorId);
+		resetArea();
+	}
+
+	@FXML
 	protected final void editSectionAction(ActionEvent event) {
+		// Updates user sellected Section to db
 		Database db = new Database();
 		int sectionId = Integer.parseInt(this.editSectionId.getText().trim());
 		String editSectionName = this.editSectionName.getText().trim();
 		String editSectionAbb = this.editSectionAbb.getText().trim();
 		String editSectionStartTime = this.editSectionStartTime.getText().trim();
 		String editSectionEndTime = this.editSectionEndTime.getText().trim();
-		String days = (editDayMon.isSelected() ? "1" : "0") + (editDayTues.isSelected() ? "1" : "0") + (editDayWed.isSelected() ? "1" : "0") 
-				+ (editDayThur.isSelected() ? "1" : "0") + (editDayFri.isSelected() ? "1" : "0");
+		String days = (editDayMon.isSelected() ? "1" : "0") + (editDayTues.isSelected() ? "1" : "0")
+				+ (editDayWed.isSelected() ? "1" : "0") + (editDayThur.isSelected() ? "1" : "0")
+				+ (editDayFri.isSelected() ? "1" : "0");
+		if (editSectionName == "" || editSectionAbb == "" || editSectionStartTime == "" || editSectionEndTime == ""
+				|| days == "") {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error");
+			alert.setContentText("Check your boxes!");
+			alert.showAndWait();
+		} else if (editSectionName.matches(".*\\d+.*") || editSectionAbb.matches(".*\\d+.*")
+				|| editSectionStartTime.matches(".*[a-zA-z]+.*") || editSectionEndTime.matches(".*[a-zA-z]+.*")) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error");
+			alert.setContentText("Check your boxes!");
+			alert.showAndWait();
+		}
 		db.editSection(sectionId, editSectionName, editSectionAbb, editSectionStartTime, editSectionEndTime, days);
 		resetArea();
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Success");
 		alert.setHeaderText("Edit Success");
-		alert.setContentText("Succesfully Updated Section " +sectionId );
+		alert.setContentText("Succesfully Updated Section " + sectionId);
+		alert.showAndWait();
+	}
+
+	@FXML
+	protected final void editInstructorAction(ActionEvent event) {
+		// updates user selected instructor to db
+		Database db = new Database();
+		int instructorId = Integer.parseInt(editInstructorId.getText().trim());
+		String editInstructorName = this.editInstructorName.getText().trim();
+		String editInstructorDiscipline = this.editInstructorDiscipline.getText().trim();
+		if (editInstructorName == "" || editInstructorDiscipline == "") {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error");
+			alert.setContentText("Check your boxes!");
+			alert.showAndWait();
+		} else if (editInstructorName.matches(".*\\d+.*") || editInstructorDiscipline.matches(".*\\d+.*")) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error");
+			alert.setContentText("Check your boxes!");
+			alert.showAndWait();
+		} else {
+			db.editInstructor(instructorId, editInstructorName, editInstructorDiscipline);
+		}
+		resetArea();
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Success");
+		alert.setHeaderText("Edit Success");
+		alert.setContentText("Succesfully Updated Instructor " + editInstructorName);
 		alert.showAndWait();
 	}
 
 	@FXML
 	protected final void loadSectionAction(ActionEvent event) {
+		// loads user selected section from db
 		editDayMon.setSelected(false);
 		editDayTues.setSelected(false);
 		editDayWed.setSelected(false);
@@ -114,7 +174,7 @@ public class Controller implements Initializable {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Error");
 			alert.setHeaderText("Invalid Input");
-			alert.setContentText("Cannot use numbers for sectionId");
+			alert.setContentText("Cannot use letters for sectionId");
 			alert.showAndWait();
 		} else {
 			sectionData = db.getRowData(Integer.parseInt(editSectionId.getText().trim()));
@@ -145,29 +205,23 @@ public class Controller implements Initializable {
 		}
 	}
 
-	protected void resetArea() {
-		editDayMon.setSelected(false);
-		editDayTues.setSelected(false);
-		editDayWed.setSelected(false);
-		editDayThur.setSelected(false);
-		editDayFri.setSelected(false);
-
-		dayMon.setSelected(false);
-		dayTues.setSelected(false);
-		dayWed.setSelected(false);
-		dayThur.setSelected(false);
-		dayFri.setSelected(false);
-
-		editSectionId.setText("");
-		editSectionName.setText("");
-		editSectionAbb.setText("");
-		editSectionStartTime.setText("");
-		editSectionEndTime.setText("");
-
-		sectionName.setText("");
-		sectionAbb.setText("");
-		startTime.setText("");
-		endTime.setText("");
+	@FXML
+	protected final void loadInstructorAction(ActionEvent event) {
+		// loads user selected instructor data from db
+		Database db = new Database();
+		if (editInstructorId.getText().trim().equals("")
+				|| editInstructorId.getText().trim().matches(".*[a-zA-z]+.*")) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Invalid Input");
+			alert.setContentText("Cannot use letters for editInstructorId");
+			alert.showAndWait();
+		} else {
+			ArrayList<String> instructorData = db
+					.getInstructorData(Integer.parseInt(editInstructorId.getText().trim()));
+			this.editInstructorName.setText(instructorData.get(0));
+			this.editInstructorDiscipline.setText(instructorData.get(1));
+		}
 	}
 
 	@FXML
@@ -183,7 +237,39 @@ public class Controller implements Initializable {
 	}
 
 	@FXML
+	protected final void addInstructorAction(ActionEvent event) {
+		// adds new instructor and saves it to db
+		Database db = new Database();
+		if (instructorName.getText().trim().isEmpty() || instructorDiscipline.getText().trim().isEmpty()
+				|| instructorId.getText().trim().isEmpty()) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Empty Text Box");
+			alert.setContentText("Check if you have entered every text box");
+			alert.showAndWait();
+		} else if (instructorName.getText().trim().matches(".*\\d+.*")
+				|| instructorDiscipline.getText().trim().matches(".*\\d+.*")) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Invalid Input");
+			alert.setContentText("Cannot use numbers for Instructor Name or Discipline");
+			alert.showAndWait();
+		} else if (instructorId.getText().trim().matches(".*[a-zA-z]+.*")) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Invalid Input");
+			alert.setContentText("Only use numbers for User Id");
+			alert.showAndWait();
+		} else {
+			db.addInstructor(Integer.parseInt(instructorId.getText().trim()), instructorName.getText().trim(),
+					instructorDiscipline.getText().trim());
+		}
+		resetArea();
+	}
+
+	@FXML
 	protected final void addSectionAction(ActionEvent event) throws Exception {
+		// adds new section to db
 		boolean checkEmpty = false;
 		if (!dayMon.isSelected() && !dayTues.isSelected() && !dayWed.isSelected() && !dayThur.isSelected()
 				&& !dayFri.isSelected()) {
@@ -251,4 +337,39 @@ public class Controller implements Initializable {
 		}
 		resetArea();
 	}
+
+	protected void resetArea() {
+		// empty out all text box and check box on fx 
+		editDayMon.setSelected(false);
+		editDayTues.setSelected(false);
+		editDayWed.setSelected(false);
+		editDayThur.setSelected(false);
+		editDayFri.setSelected(false);
+
+		dayMon.setSelected(false);
+		dayTues.setSelected(false);
+		dayWed.setSelected(false);
+		dayThur.setSelected(false);
+		dayFri.setSelected(false);
+
+		editSectionId.setText("");
+		editSectionName.setText("");
+		editSectionAbb.setText("");
+		editSectionStartTime.setText("");
+		editSectionEndTime.setText("");
+
+		sectionName.setText("");
+		sectionAbb.setText("");
+		startTime.setText("");
+		endTime.setText("");
+
+		instructorName.setText("");
+		instructorDiscipline.setText("");
+		instructorId.setText("");
+
+		editInstructorName.setText("");
+		editInstructorDiscipline.setText("");
+		editInstructorId.setText("");
+	}
+
 }
