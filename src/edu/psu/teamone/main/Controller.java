@@ -100,8 +100,8 @@ public class Controller implements Initializable {
 		int sectionId = Integer.parseInt(this.editSectionId.getText().trim());
 		String editSectionName = this.editSectionName.getText().trim();
 		String editSectionAbb = this.editSectionAbb.getText().trim();
-		String editSectionStartTime = this.editSectionStartTime.getText().trim();
-		String editSectionEndTime = this.editSectionEndTime.getText().trim();
+		String editSectionStartTime = this.editSectionStartTime.getText().trim()+":00";
+		String editSectionEndTime = this.editSectionEndTime.getText().trim()+":00";
 		String days = (editDayMon.isSelected() ? "1" : "0") + (editDayTues.isSelected() ? "1" : "0")
 				+ (editDayWed.isSelected() ? "1" : "0") + (editDayThur.isSelected() ? "1" : "0")
 				+ (editDayFri.isSelected() ? "1" : "0");
