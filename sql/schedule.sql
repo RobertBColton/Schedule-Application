@@ -14,8 +14,8 @@ CREATE TABLE `classes` (
 DROP TABLE IF EXISTS `meetings`;
 CREATE TABLE `meetings` (
   `meeting id` int(64) NOT NULL,
-  `start time` time NOT NULL,
-  `end time` time NOT NULL,
+  `start time` text NOT NULL,
+  `end time` text NOT NULL,
   `M` bool null,
   `T` bool null,
   `W` bool null,
