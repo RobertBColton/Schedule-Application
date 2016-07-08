@@ -38,8 +38,7 @@ CREATE TABLE `classmeetings` (
 DROP TABLE IF EXISTS `instructors`;
 CREATE TABLE `instructors` (
   `user id` int(64) NOT NULL,
-  `first name` text NOT NULL,
-  `last name` text NOT NULL,
+  `name` text NOT NULL,
   `discipline` text NOT NULL,
   PRIMARY KEY (`user id`)
 );
