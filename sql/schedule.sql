@@ -16,11 +16,11 @@ CREATE TABLE `meetings` (
   `meeting id` int(64) NOT NULL,
   `start time` text NOT NULL,
   `end time` text NOT NULL,
-  `M` bool null,
-  `T` bool null,
-  `W` bool null,
-  `TR` bool null,
-  `F` bool null,
+  `M` text null,
+  `T` text null,
+  `W` text null,
+  `TR` text null,
+  `F` text null,
   PRIMARY KEY (`meeting id`)
 );
 
