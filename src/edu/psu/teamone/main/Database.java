@@ -11,9 +11,13 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 public class Database {
 	private Connection con = null;
 	private Statement st = null;
+	private Statement et = null;
 	private ResultSet rs = null;
 	// db connection credentials
 	private String url = "jdbc:mysql://localhost:3306/schedule";
@@ -239,6 +243,9 @@ public class Database {
 			}
 			section = tempSection;
 			meeting = tempMeeting;
+			for (int i = 0; i < section.size(); i++) {
+				System.out.println(section.get(i).getId());
+			}
 		} catch (SQLException ex) {
 
 			Logger lgr = Logger.getLogger(Database.class.getName());
@@ -266,6 +273,111 @@ public class Database {
 				lgr.log(Level.WARNING, ex.getMessage(), ex);
 			}
 		}
+	}
+
+	void deleteSection(int sectionId) {
+
+		try {
+
+			con = DriverManager.getConnection(url, user, password);
+			st = con.createStatement();
+			String command = String.format("DELETE FROM classes" + " WHERE `course id` = '%d' ", sectionId);
+			String command2 = String.format("DELETE FROM meetings" + " WHERE `meeting id` = '%d' ", sectionId);
+			st.executeUpdate(command);
+			st.executeUpdate(command2);
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Success");
+			alert.setHeaderText("Deleted Success");
+			alert.setContentText("Delete section " +  sectionId + " successful");
+			alert.showAndWait();
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(Database.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+		} finally {
+			// close db connection
+			try {
+
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (st != null) {
+					st.close();
+				}
+
+				if (con != null) {
+					con.close();
+				}
+
+			} catch (SQLException ex) {
+
+				Logger lgr = Logger.getLogger(Database.class.getName());
+				lgr.log(Level.WARNING, ex.getMessage(), ex);
+			}
+		}
+	}
+
+	public ArrayList<String> getRowData(int sectionId) {
+		try {
+			String sectionName, sectionAbb, sectionStartTime, sectionEndTime, days = "";
+			con = DriverManager.getConnection(url, user, password);
+			st = con.createStatement();
+			et = con.createStatement();
+			String sectionCommand = String.format("SELECT * FROM classes" + " WHERE `course id` = '%d' ", sectionId);
+			String meetingCommand = String.format("SELECT * FROM meetings" + " WHERE `meeting id` = '%d' ", sectionId);
+			ResultSet getSectionData = st.executeQuery(sectionCommand);
+			ResultSet getMeetingData = et.executeQuery(meetingCommand);
+			getSectionData.next();
+			getMeetingData.next();
+			sectionName = getSectionData.getString(2);
+			sectionAbb = getSectionData.getString(3);
+			sectionStartTime = getMeetingData.getString(2);
+			sectionEndTime = getMeetingData.getString(3);
+			days += getMeetingData.getString(4) + getMeetingData.getString(5) + getMeetingData.getString(6)
+					+ getMeetingData.getString(7) + getMeetingData.getString(8);
+			st.close();
+			et.close();
+			ArrayList<String> sectionData = new ArrayList<String>();
+			sectionData.add(sectionName);// 0
+			sectionData.add(sectionAbb);// 1
+			sectionData.add(sectionStartTime);// 2
+			sectionData.add(sectionEndTime);// 3
+			sectionData.add(days);// 4
+			return sectionData;
+
+		} catch (SQLException ex) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Invalid Input");
+			alert.setContentText("Cannot find corresonding Section and Meeting");
+			alert.showAndWait();
+			Logger lgr = Logger.getLogger(Database.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+		} finally {
+			// close db connection
+			try {
+
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (st != null) {
+					st.close();
+				}
+
+				if (con != null) {
+					con.close();
+				}
+
+			} catch (SQLException ex) {
+
+				Logger lgr = Logger.getLogger(Database.class.getName());
+				lgr.log(Level.WARNING, ex.getMessage(), ex);
+			}
+		}
+		return null;
 	}
 
 }
