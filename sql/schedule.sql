@@ -33,3 +33,13 @@ CREATE TABLE `classmeetings` (
   FOREIGN KEY (`course id`) REFERENCES classes(`course id`),
   PRIMARY KEY (`meeting id`, `course id`)
 );
+
+/*instructors*/
+DROP TABLE IF EXISTS `instructors`;
+CREATE TABLE `instructors` (
+  `user id` int(64) NOT NULL,
+  `first name` text NOT NULL,
+  `last name` text NOT NULL,
+  `discipline` text NOT NULL,
+  PRIMARY KEY (`user id`)
+);
