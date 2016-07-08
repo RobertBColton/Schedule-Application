@@ -25,6 +25,7 @@ public class Database {
 	private String password = "root";
 
 	public void addClass(int courseId, String courseName, String courseAbb) {
+		// adds new class to classes table in db
 		try {
 
 			con = DriverManager.getConnection(url, user, password);
@@ -67,6 +68,7 @@ public class Database {
 	}
 
 	public void addMeeting(int meetingId, String startTime, String endTime, String days) {
+		// adds new meeting to meetings table in db
 		// course Id and meeting Id are same, thus meeting 0000001 means it
 		// teaches course 0000001
 		// days indicate which days the meeting is held. "00101" means
@@ -112,27 +114,27 @@ public class Database {
 		}
 	}
 
-	public int generateId() {
-		// Check if database is empty, if yes give 1000000 to course id.
-		// If not, give last row's course id added by 1.
-		// Ex) If Last row's course id is 1000003, give 1000004
+	public void addInstructor(int instructorId, String instructorName, String instructorDiscipline) {
+		// adds new instructor to instructors table in db
 		try {
 
 			con = DriverManager.getConnection(url, user, password);
 			st = con.createStatement();
-			ResultSet getData = st.executeQuery("SELECT * FROM classes");
-			int rowCount = 0;
-			String lastId = "";
-			while (getData.next()) {
-				rowCount++;
-				lastId = getData.getString(1);
-			} /*
-				 * if (rowCount == 0) { return 1000000; } else { return
-				 * Integer.parseInt(lastId) + 1; }
-				 */
-			return rowCount == 0 ? 1000000 : Integer.parseInt(lastId) + 1;
+			String command = String.format("INSERT INTO instructors VALUES ('%d', '%s', '%s')", instructorId,
+					instructorName, instructorDiscipline);
+			st.executeUpdate(command);
+			st.close();
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Success");
+			alert.setHeaderText("Success");
+			alert.setContentText("Successfully added Instructor " + instructorName);
+			alert.showAndWait();
 		} catch (SQLException ex) {
-
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("SQL Error");
+			alert.setContentText("You may be using a duplicate user id, try a different user id");
+			alert.showAndWait();
 			Logger lgr = Logger.getLogger(Database.class.getName());
 			lgr.log(Level.SEVERE, ex.getMessage(), ex);
 
@@ -158,11 +160,10 @@ public class Database {
 				lgr.log(Level.WARNING, ex.getMessage(), ex);
 			}
 		}
-		return 0;
 	}
 
-	public int checkEmpty() {
-		// Check if database is empty, if yes give 1000000 to course id.
+	public int generateId() {
+		// Checks if database is empty, if yes give 1000000 to course id.
 		// If not, give last row's course id added by 1.
 		// Ex) If Last row's course id is 1000003, give 1000004
 		try {
@@ -211,6 +212,7 @@ public class Database {
 	}
 
 	ArrayList<Section> getDataFromDBSection() {
+		// load all rows from sections table in tb
 		try {
 			con = DriverManager.getConnection(url, user, password);
 			st = con.createStatement();
@@ -252,6 +254,7 @@ public class Database {
 	}
 
 	ArrayList<Meeting> getDataFromDBMeeting() {
+		//loads all rows from meetings table in db
 		try {
 			con = DriverManager.getConnection(url, user, password);
 			st = con.createStatement();
@@ -305,7 +308,7 @@ public class Database {
 	}
 
 	void deleteSection(int sectionId) {
-
+		// deletes sectionId corresponding class and meeting from classes and meetings table in db
 		try {
 
 			con = DriverManager.getConnection(url, user, password);
@@ -347,8 +350,50 @@ public class Database {
 		}
 	}
 
+	void deleteInstructor(int instructorId) {
+		// deletes instructorId corresponding row from instructors table in db
+		try {
+
+			con = DriverManager.getConnection(url, user, password);
+			st = con.createStatement();
+			String command = String.format("DELETE FROM instructors" + " WHERE `user id` = '%d' ", instructorId);
+			st.executeUpdate(command);
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Success");
+			alert.setHeaderText("Deleted Success");
+			alert.setContentText("Delete Instructor " + instructorId + " successful");
+			alert.showAndWait();
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(Database.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+		} finally {
+			// close db connection
+			try {
+
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (st != null) {
+					st.close();
+				}
+
+				if (con != null) {
+					con.close();
+				}
+
+			} catch (SQLException ex) {
+
+				Logger lgr = Logger.getLogger(Database.class.getName());
+				lgr.log(Level.WARNING, ex.getMessage(), ex);
+			}
+		}
+	}
+
 	void editSection(int sectionId, String editSectionName, String editSectionAbb, String editSectionStartTime,
 			String editSectionEndTime, String days) {
+		// updates db with new information in row corresponding to sectionId
 		try {
 			con = DriverManager.getConnection(url, user, password);
 			Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -402,7 +447,103 @@ public class Database {
 		}
 	}
 
+	void editInstructor(int instructorId, String editInstructorName, String editInstructorDiscipline) {
+		// updates db with new information in row corresponding to sectionId
+		try {
+			con = DriverManager.getConnection(url, user, password);
+			Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			String command = String.format("SELECT * FROM instructors");
+			ResultSet sectionRS = stmt.executeQuery(command);
+			while (sectionRS.next()) {
+				if (sectionRS.getString(1).toString().equals(Integer.toString(instructorId))) {
+					sectionRS.updateString("name", editInstructorName);
+					sectionRS.updateRow();
+					sectionRS.updateString("discipline", editInstructorDiscipline);
+					sectionRS.updateRow();
+				}
+			}
+		} catch (SQLException ex) {
+			Logger lgr = Logger.getLogger(Database.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+		} finally {
+			// close db connection
+			try {
+
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (st != null) {
+					st.close();
+				}
+
+				if (con != null) {
+					con.close();
+				}
+
+			} catch (SQLException ex) {
+
+				Logger lgr = Logger.getLogger(Database.class.getName());
+				lgr.log(Level.WARNING, ex.getMessage(), ex);
+			}
+		}
+	}
+
+	public ArrayList<String> getInstructorData(int instructorId) {
+		// loads instructorId corresponding row from instructor table in db
+		try {
+			String instructorName = "", instructorDiscipline = "";
+			con = DriverManager.getConnection(url, user, password);
+			st = con.createStatement();
+			String instructorCommand = String.format("SELECT * FROM instructors" + " WHERE `user id` = '%d' ",
+					instructorId);
+			ResultSet getInstructorData = st.executeQuery(instructorCommand);
+			getInstructorData.next();
+			instructorName = getInstructorData.getString(2);
+			instructorDiscipline = getInstructorData.getString(3);
+			st.close();
+			ArrayList<String> sectionData = new ArrayList<String>();
+			sectionData.add(instructorName);// 0
+			sectionData.add(instructorDiscipline);// 1
+			return sectionData;
+
+		} catch (SQLException ex) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Invalid Input");
+			alert.setContentText("Cannot find corresonding Instructor");
+			alert.showAndWait();
+			Logger lgr = Logger.getLogger(Database.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+		} finally {
+			// close db connection
+			try {
+
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (st != null) {
+					st.close();
+				}
+
+				if (con != null) {
+					con.close();
+				}
+
+			} catch (SQLException ex) {
+
+				Logger lgr = Logger.getLogger(Database.class.getName());
+				lgr.log(Level.WARNING, ex.getMessage(), ex);
+			}
+		}
+		return null;
+	}
+
 	public ArrayList<String> getRowData(int sectionId) {
+		// loads sectionId corresponding row from sections and meetings table in db
 		try {
 			String sectionName, sectionAbb, sectionStartTime, sectionEndTime, days = "";
 			con = DriverManager.getConnection(url, user, password);
