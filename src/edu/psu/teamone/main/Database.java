@@ -210,42 +210,17 @@ public class Database {
 		return 0;
 	}
 
-	void getDataFromDB(ArrayList<Section> section, ArrayList<Meeting> meeting) {
+	ArrayList<Section> getDataFromDBSection() {
 		try {
 			con = DriverManager.getConnection(url, user, password);
 			st = con.createStatement();
 			ArrayList<Section> tempSection = new ArrayList<Section>();
-			ArrayList<Meeting> tempMeeting = new ArrayList<Meeting>();
 			ResultSet getData = st.executeQuery("SELECT * FROM classes");
 			while (getData.next()) {
 				tempSection.add(new Section(getData.getString(2), getData.getString(3),
 						Integer.parseInt(getData.getString(1))));
-				// System.out.println(getData.getString(2)+ " " +
-				// getData.getString(3) + " " +
-				// Integer.parseInt(getData.getString(1)));
 			}
-			ResultSet getData2 = st.executeQuery("SELECT * FROM meetings");
-			while (getData2.next()) {
-				boolean[] days = new boolean[7];
-				// Time startTime = new Time(getData2.getString(2)+ ":00");
-				Time startTime = java.sql.Time.valueOf(getData2.getString(2));
-				Time endTime = java.sql.Time.valueOf(getData2.getString(3));
-				days[0] = Integer.parseInt(getData2.getString(4)) == 1 ? true : false;
-				days[1] = Integer.parseInt(getData2.getString(5)) == 1 ? true : false;
-				days[2] = Integer.parseInt(getData2.getString(6)) == 1 ? true : false;
-				days[3] = Integer.parseInt(getData2.getString(7)) == 1 ? true : false;
-				days[4] = Integer.parseInt(getData2.getString(8)) == 1 ? true : false;
-				// System.out.println(days[0]+ " " +days[1]+" " +days[2]+" "
-				// +days[3]+" " +days[4]);
-				// System.out.println(startTime);
-				// System.out.println(endTime);
-				tempMeeting.add(new Meeting(days, startTime, endTime));
-			}
-			section = tempSection;
-			meeting = tempMeeting;
-			for (int i = 0; i < section.size(); i++) {
-				System.out.println(section.get(i).getId());
-			}
+			return tempSection;
 		} catch (SQLException ex) {
 
 			Logger lgr = Logger.getLogger(Database.class.getName());
@@ -273,7 +248,61 @@ public class Database {
 				lgr.log(Level.WARNING, ex.getMessage(), ex);
 			}
 		}
+		return null;
 	}
+	ArrayList<Meeting> getDataFromDBMeeting() {
+		try {
+			con = DriverManager.getConnection(url, user, password);
+			st = con.createStatement();
+			ArrayList<Meeting> tempMeeting = new ArrayList<Meeting>();
+			ResultSet getData2 = st.executeQuery("SELECT * FROM meetings");
+			while (getData2.next()) {
+				boolean[] days = new boolean[7];
+				// Time startTime = new Time(getData2.getString(2)+ ":00");
+				Time startTime = java.sql.Time.valueOf(getData2.getString(2));
+				Time endTime = java.sql.Time.valueOf(getData2.getString(3));
+				days[0] = Integer.parseInt(getData2.getString(4)) == 1 ? true : false;
+				days[1] = Integer.parseInt(getData2.getString(5)) == 1 ? true : false;
+				days[2] = Integer.parseInt(getData2.getString(6)) == 1 ? true : false;
+				days[3] = Integer.parseInt(getData2.getString(7)) == 1 ? true : false;
+				days[4] = Integer.parseInt(getData2.getString(8)) == 1 ? true : false;
+				// System.out.println(days[0]+ " " +days[1]+" " +days[2]+" "
+				// +days[3]+" " +days[4]);
+				// System.out.println(startTime);
+				// System.out.println(endTime);
+				tempMeeting.add(new Meeting(days, startTime, endTime));
+			}
+			return tempMeeting;
+		} catch (SQLException ex) {
+
+			Logger lgr = Logger.getLogger(Database.class.getName());
+			lgr.log(Level.SEVERE, ex.getMessage(), ex);
+
+		} finally {
+			// close db connection
+			try {
+
+				if (rs != null) {
+					rs.close();
+				}
+
+				if (st != null) {
+					st.close();
+				}
+
+				if (con != null) {
+					con.close();
+				}
+
+			} catch (SQLException ex) {
+
+				Logger lgr = Logger.getLogger(Database.class.getName());
+				lgr.log(Level.WARNING, ex.getMessage(), ex);
+			}
+		}
+		return null;
+	}
+
 
 	void deleteSection(int sectionId) {
 
