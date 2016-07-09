@@ -262,8 +262,8 @@ public class Database {
 			while (getData2.next()) {
 				boolean[] days = new boolean[7];
 				// Time startTime = new Time(getData2.getString(2)+ ":00");
-				Time startTime = java.sql.Time.valueOf(getData2.getString(2)+":00");
-				Time endTime = java.sql.Time.valueOf(getData2.getString(3)+":00");
+				Time startTime = java.sql.Time.valueOf(getData2.getString(2));
+				Time endTime = java.sql.Time.valueOf(getData2.getString(3));
 				days[0] = Integer.parseInt(getData2.getString(4)) == 1 ? true : false;
 				days[1] = Integer.parseInt(getData2.getString(5)) == 1 ? true : false;
 				days[2] = Integer.parseInt(getData2.getString(6)) == 1 ? true : false;
@@ -412,8 +412,8 @@ public class Database {
 			}
 			while (sectionRS2.next()) {
 				if (sectionRS2.getString(1).toString().equals(Integer.toString(sectionId))) {
-					sectionRS2.updateString("start time", editSectionStartTime);
-					sectionRS2.updateString("end time", editSectionStartTime);
+					sectionRS2.updateString("start time", editSectionStartTime + ":00");
+					sectionRS2.updateString("end time", editSectionStartTime + ":00");
 					sectionRS2.updateString("M", Character.toString(days.charAt(0)));
 					sectionRS2.updateString("T", Character.toString(days.charAt(1)));
 					sectionRS2.updateString("W", Character.toString(days.charAt(2)));
