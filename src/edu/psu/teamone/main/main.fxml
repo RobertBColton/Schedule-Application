@@ -8,6 +8,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.control.cell.*?> 
+<?import javafx.collections.*?>
 
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="edu.psu.teamone.main.Controller">
   <center>
@@ -18,11 +20,11 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" fx:id="x1" />
           </columnResizePolicy>
           <columns>
-            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="216.0" text="%id" />
-            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="192.0" text="%name" />
-            <TableColumn maxWidth="5000.0" minWidth="8.0" prefWidth="104.0" text="%abbreviation" />
-            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="88.0" text="%time" />
-            <TableColumn text="%days" />
+            <TableColumn fx:id="idColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="216.0" text="%id"/>
+            <TableColumn fx:id="nameColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="192.0" text="%name"/>
+            <TableColumn fx:id="abbreviationColumn" maxWidth="5000.0" minWidth="8.0" prefWidth="104.0" text="%abbreviation"/>
+            <TableColumn fx:id="timeColumn" maxWidth="5000.0" minWidth="10.0" prefWidth="88.0" text="%time"/>
+            <TableColumn fx:id="daysColumn" text="%days"/>
           </columns>
         </TableView>
       </Tab>

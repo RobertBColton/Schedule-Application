@@ -3,10 +3,11 @@ package edu.psu.teamone.main;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,9 +16,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
+import javafx.util.Callback;
 
 public class Controller implements Initializable {
 	@FXML
@@ -39,16 +42,52 @@ public class Controller implements Initializable {
 	@FXML
 	private TextField editSectionId, editSectionName, editSectionAbb, editSectionStartTime, editSectionEndTime;
 	@FXML
-	private TableView sectionsTable;
+	private TableView<SectionPair> sectionsTable;
 	@FXML
-	private TableColumn id, name, abbreviation, Time, Days;
+	private TableColumn idColumn, nameColumn, abbreviationColumn, timeColumn, daysColumn;
 	private ArrayList<Section> sections; // sections to be loaded from db
 	private ArrayList<Meeting> meetings; // meetings to be loaded from db
 	private Schedule schedule;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		idColumn.setCellValueFactory(new Callback<CellDataFeatures<SectionPair, Integer>, ObservableValue<Integer>>() {
+			@Override
+			public ObservableValue<Integer> call(CellDataFeatures<SectionPair, Integer> param) {
+				return new ReadOnlyObjectWrapper<Integer>(param.getValue().section.getId());
+			}  
+		});
+		nameColumn.setCellValueFactory(new Callback<CellDataFeatures<SectionPair, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<SectionPair, String> param) {
+				return new ReadOnlyObjectWrapper<String>(param.getValue().section.getName());
+			}  
+		});
+		abbreviationColumn.setCellValueFactory(new Callback<CellDataFeatures<SectionPair, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<SectionPair, String> param) {
+				return new ReadOnlyObjectWrapper<String>(param.getValue().section.getAbbreviation());
+			}  
+		});
+		timeColumn.setCellValueFactory(new Callback<CellDataFeatures<SectionPair, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<SectionPair, String> param) {
+				return new ReadOnlyObjectWrapper<String>(param.getValue().meeting.getStartTime().toLocalTime().toString());
+			}  
+		});
+		daysColumn.setCellValueFactory(new Callback<CellDataFeatures<SectionPair, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<SectionPair, String> param) {
+				String daysString = "";
+				boolean days[] = param.getValue().meeting.getDays();
+				char daysLetter[] = { 'M', 'T', 'W', 'R', 'F', 'S', 'U' };
+				for (int i = 0; i < days.length; i++) {
+					if (days[i]) daysString += daysLetter[i];
+				}
+				return new ReadOnlyObjectWrapper<String>(daysString);
+			}  
+		});
 	}
 
 	@FXML
@@ -75,7 +114,7 @@ public class Controller implements Initializable {
 	@FXML
 	protected final void handleDocAction(ActionEvent event) {
 		// Shows github page
-		ScheduleApplication.getStaticHostServices().showDocument("https://github.com/CMPSC221/Schedule-Application");
+		ScheduleApplication.getStaticHostServices().showDocument("https://github.com/CMPSC221/Schedule-Application/wiki");
 	}
 
 	@FXML
@@ -225,6 +264,16 @@ public class Controller implements Initializable {
 		}
 	}
 
+	private class SectionPair {
+		private final Section section;
+		private final Meeting meeting;
+
+		SectionPair(Section section, Meeting meeting) {
+			this.section = section;
+			this.meeting = meeting;
+		}
+	}
+
 	@FXML
 	protected final void loadSections(ActionEvent event) {
 		// Load Data Button Action
@@ -232,18 +281,20 @@ public class Controller implements Initializable {
 		Database db = new Database();
 		sections = db.getDataFromDBSection();
 		meetings = db.getDataFromDBMeeting();
-		// db.getDataFromDB(sections, meetings);
-		// System.out.println(sections.size());
-		// System.out.println(meetings.size());
-		/*
+		System.out.println(sections.size());
+		System.out.println(meetings.size());
+		sectionsTable.getItems().clear();
+
 		for (int i = 0; i < sections.size(); i++) {
+			SectionPair sectionPair = new SectionPair(sections.get(i), meetings.get(i));
+			sectionsTable.getItems().add(sectionPair);
+
 			System.out.println(sections.get(i).getName() + " " + sections.get(i).getAbbreviation() + " "
 					+ sections.get(i).getId() + " ");
 			boolean days[] = meetings.get(i).getDays();
 			System.out.println(meetings.get(i).getStartTime() + " " + meetings.get(i).getStopTime() + " " + days[0]
 					+ days[1] + days[2] + days[3] + days[4]);
 		}
-		*/
 	}
 
 	@FXML
