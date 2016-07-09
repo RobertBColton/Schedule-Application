@@ -4,6 +4,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -53,6 +55,14 @@ public class Controller implements Initializable {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		new Timer().schedule(
+			    new TimerTask() {
+
+			        @Override
+			        public void run() {
+			            loadSections();
+			        }
+			    }, 0, 5000);
 		Rule instructorRule = new Rule.InstructorSchedule();
 		idColumn.setCellValueFactory(new Callback<CellDataFeatures<SectionPair, Integer>, ObservableValue<Integer>>() {
 			@Override
@@ -380,6 +390,7 @@ public class Controller implements Initializable {
 			alert.setHeaderText("Schedule creation sucess");
 			alert.setContentText("Success! Your Schedule Score is " + sum);
 			alert.showAndWait();
+			schedule = temp;
 		}
 
 	}
