@@ -114,7 +114,7 @@ public class Controller implements Initializable {
 	@FXML
 	protected final void handleDocAction(ActionEvent event) {
 		// Shows github page
-		ScheduleApplication.getStaticHostServices().showDocument("https://github.com/CMPSC221/Schedule-Application");
+		ScheduleApplication.getStaticHostServices().showDocument("https://github.com/CMPSC221/Schedule-Application/wiki");
 	}
 
 	@FXML
