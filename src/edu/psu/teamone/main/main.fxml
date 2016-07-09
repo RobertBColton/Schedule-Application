@@ -134,8 +134,6 @@
             <items>
               <MenuItem onAction="#loadSections" text="%loadDataButton" />
               <MenuItem onAction="#createSchedule" text="%createScheduleButton" />
-              <MenuItem text="%saveButton" accelerator="%saveButton.accelerator" />
-              <MenuItem text="%saveAsButton" accelerator="%saveAsButton.accelerator" />
               <MenuItem onAction="#handleExportAction" text="%exportButton" accelerator="%exportButton.accelerator"/>
               <SeparatorMenuItem />
               <MenuItem onAction="#handleExitAction" text="%exitButton" accelerator="%exitButton.accelerator"/>
