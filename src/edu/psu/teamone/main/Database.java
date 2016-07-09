@@ -413,7 +413,7 @@ public class Database {
 			while (sectionRS2.next()) {
 				if (sectionRS2.getString(1).toString().equals(Integer.toString(sectionId))) {
 					sectionRS2.updateString("start time", editSectionStartTime + ":00");
-					sectionRS2.updateString("end time", editSectionStartTime + ":00");
+					sectionRS2.updateString("end time", editSectionEndTime + ":00");
 					sectionRS2.updateString("M", Character.toString(days.charAt(0)));
 					sectionRS2.updateString("T", Character.toString(days.charAt(1)));
 					sectionRS2.updateString("W", Character.toString(days.charAt(2)));
@@ -562,8 +562,8 @@ public class Database {
 			getMeetingData.next();
 			sectionName = getSectionData.getString(2);
 			sectionAbb = getSectionData.getString(3);
-			sectionStartTime = getMeetingData.getString(2);
-			sectionEndTime = getMeetingData.getString(3);
+			sectionStartTime = getMeetingData.getString(2).substring(0,getMeetingData.getString(2).length()-3);
+			sectionEndTime = getMeetingData.getString(3).substring(0,getMeetingData.getString(3).length()-3);
 			days += getMeetingData.getString(4) + getMeetingData.getString(5) + getMeetingData.getString(6)
 					+ getMeetingData.getString(7) + getMeetingData.getString(8);
 			st.close();
