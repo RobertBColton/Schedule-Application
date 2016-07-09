@@ -354,6 +354,11 @@ public class Controller implements Initializable {
 		}
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Save Schedule");
+		fileChooser.setInitialFileName("schedule.xml");
+		fileChooser.getExtensionFilters().addAll(
+			new FileChooser.ExtensionFilter("All Files", "*.*"),
+			new FileChooser.ExtensionFilter("XML", "*.xml")
+		);
 
 		File file = fileChooser.showSaveDialog(root.getScene().getWindow());
 		if (file != null) {
