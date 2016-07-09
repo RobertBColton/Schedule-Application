@@ -17,7 +17,7 @@ public abstract class Rule {
 	// fit schedule. A value of 0 indicates a perfect fit.
 	public abstract int getFitness(Schedule schedule);
 
-	public class InstructorSchedule extends Rule {
+	public static class InstructorSchedule extends Rule {
 		// This operation returns a fitness score for the
 		// provided schedule. Higher values indicate a less
 		// fit schedule. A value of 0 indicates a perfect fit.

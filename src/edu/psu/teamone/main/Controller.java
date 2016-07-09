@@ -53,6 +53,7 @@ public class Controller implements Initializable {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		Rule instructorRule = new Rule.InstructorSchedule();
 		idColumn.setCellValueFactory(new Callback<CellDataFeatures<SectionPair, Integer>, ObservableValue<Integer>>() {
 			@Override
 			public ObservableValue<Integer> call(CellDataFeatures<SectionPair, Integer> param) {
@@ -300,12 +301,21 @@ public class Controller implements Initializable {
 
 	@FXML
 	protected final void handleExportAction(ActionEvent event) {
+		if (schedule == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Export Error");
+			alert.setHeaderText("Schedule Does Not Exist");
+			alert.setContentText("You must create a schedule before you can export it.");
+
+			alert.showAndWait();
+			return;
+		}
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Save Schedule");
 		
 		File file = fileChooser.showSaveDialog(root.getScene().getWindow());
 		if (file != null) {
-
+			Exporter.export(file, schedule);
 		}
 	}
 
