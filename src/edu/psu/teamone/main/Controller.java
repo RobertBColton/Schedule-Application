@@ -363,6 +363,7 @@ public class Controller implements Initializable {
 		File file = fileChooser.showSaveDialog(root.getScene().getWindow());
 		if (file != null) {
 			Exporter.export(file, schedule);
+			ScheduleApplication.getStaticHostServices().showDocument(file.getAbsolutePath());
 		}
 	}
 

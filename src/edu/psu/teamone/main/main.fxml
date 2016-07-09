@@ -28,14 +28,6 @@
           </columns>
         </TableView>
       </Tab>
-      <Tab closable="false" text="%schedulesTab">
-        <TableView columnResizePolicy="$x1">
-          <columns>
-            <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="373.0" text="%section" />
-            <TableColumn text="%meeting" />
-          </columns>
-        </TableView>
-      </Tab>
       <Tab closable="false" text="%addSectionTab">
         <content>
           <VBox spacing="4.0">
