@@ -17,7 +17,7 @@ public abstract class Rule {
 	// fit schedule. A value of 0 indicates a perfect fit.
 	public abstract int getFitness(Schedule schedule);
 
-	public class InstructorSchedule extends Rule {
+	public static class InstructorSchedule extends Rule {
 		// This operation returns a fitness score for the
 		// provided schedule. Higher values indicate a less
 		// fit schedule. A value of 0 indicates a perfect fit.
@@ -54,8 +54,7 @@ public abstract class Rule {
 		}
 	}
 
-	public class InstructorConflict extends Rule {
-		@Override
+	public static class InstructorConflict extends Rule {
 		// This operation returns 0 if no instructors
 		// are scheduled for simultaneous classes and
 		// IMPOSSIBLE otherwise.
@@ -66,41 +65,37 @@ public abstract class Rule {
 				meetingList.add(scheduleEntry.getValue());
 			}
 			boolean checkConflicts = checkConflicts(meetingList);
-			return !checkConflicts ? IMPOSSIBLE : 0;
+			return checkConflicts ? IMPOSSIBLE : 0;
 		}
 
 		private boolean checkConflicts(ArrayList<Meeting> meetingList) {
 			// Checks if there is any conflicting class schedule
 			// Condition: Schedule 1 starts on or before Schedule 2 and Schedule
-			// 1 Ends after Schedule 2 Starts
+			// 1 Ends after Schedule 2 Start
+
 			for (int i = 0; i < meetingList.size(); i++) {
-				// Go through all meetings and check any time conflicts
-				for (int j = i + 1; j < meetingList.size(); j++) {
-					// Compare each meeting to all other meetings
-					if (meetingList.get(i).getDays() == meetingList.get(j).getDays()) {
-						// Class on same days
-						Time compHourOneStart = meetingList.get(i).getStartTime();
-						Time compHourOneEnd = meetingList.get(i).getStopTime();
-						Time compHourTwoStart = meetingList.get(j).getStartTime();
-						if (compHourOneStart.compareTo(compHourTwoStart) <= 0
-								&& compHourOneEnd.compareTo(compHourTwoStart) > 1) {
-							// If Two Schedules have the same start time or
-							// If One Schedule starts before the another and
-							// ends after the another schedule's
-							// start time, schedule conflicts
-							// compHourOneEnd.compareTo(compHourTwoStart) == 0
-							// would mean that there is a back-to-back schedule
-							return false;
+				for (int j = i + 1; j < meetingList.size()-1; j++) {
+					boolean days1[] = meetingList.get(i).getDays();
+					boolean days2[] = meetingList.get(j).getDays();
+					for (int k = 0; k < days1.length; k++) {
+						if (days1[k] == days2[k]) {
+							Time compHourOneEnd = meetingList.get(i).getStopTime();
+							Time compHourTwoStart = meetingList.get(j).getStartTime();
+							if (meetingList.get(i).getStartTime() == meetingList.get(j).getStartTime()) {
+								return true;
+							}
+							if (compHourOneEnd.compareTo(compHourTwoStart) == 1) {
+								return true;
+							}
 						}
 					}
 				}
 			}
-			return true;
+			return false;
 		}
 	}
 
-	public class InstructorHours extends Rule {
-		@Override
+	public static class InstructorHours extends Rule {
 		// This checks if the instructor is working too much
 		// Returns 0 if weekly lecture hour <= 40
 		// Returns IMPOSSIBLE if weekly lecture hour > 40
