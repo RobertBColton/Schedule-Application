@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import edu.psu.teamone.main.Rule.InstructorSchedule;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -58,25 +59,27 @@ public class Controller implements Initializable {
 			@Override
 			public ObservableValue<Integer> call(CellDataFeatures<SectionPair, Integer> param) {
 				return new ReadOnlyObjectWrapper<Integer>(param.getValue().section.getId());
-			}  
+			}
 		});
 		nameColumn.setCellValueFactory(new Callback<CellDataFeatures<SectionPair, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<SectionPair, String> param) {
 				return new ReadOnlyObjectWrapper<String>(param.getValue().section.getName());
-			}  
+			}
 		});
-		abbreviationColumn.setCellValueFactory(new Callback<CellDataFeatures<SectionPair, String>, ObservableValue<String>>() {
-			@Override
-			public ObservableValue<String> call(CellDataFeatures<SectionPair, String> param) {
-				return new ReadOnlyObjectWrapper<String>(param.getValue().section.getAbbreviation());
-			}  
-		});
+		abbreviationColumn
+				.setCellValueFactory(new Callback<CellDataFeatures<SectionPair, String>, ObservableValue<String>>() {
+					@Override
+					public ObservableValue<String> call(CellDataFeatures<SectionPair, String> param) {
+						return new ReadOnlyObjectWrapper<String>(param.getValue().section.getAbbreviation());
+					}
+				});
 		timeColumn.setCellValueFactory(new Callback<CellDataFeatures<SectionPair, String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<SectionPair, String> param) {
-				return new ReadOnlyObjectWrapper<String>(param.getValue().meeting.getStartTime().toLocalTime().toString());
-			}  
+				return new ReadOnlyObjectWrapper<String>(
+						param.getValue().meeting.getStartTime().toLocalTime().toString());
+			}
 		});
 		daysColumn.setCellValueFactory(new Callback<CellDataFeatures<SectionPair, String>, ObservableValue<String>>() {
 			@Override
@@ -85,10 +88,11 @@ public class Controller implements Initializable {
 				boolean days[] = param.getValue().meeting.getDays();
 				char daysLetter[] = { 'M', 'T', 'W', 'R', 'F', 'S', 'U' };
 				for (int i = 0; i < days.length; i++) {
-					if (days[i]) daysString += daysLetter[i];
+					if (days[i])
+						daysString += daysLetter[i];
 				}
 				return new ReadOnlyObjectWrapper<String>(daysString);
-			}  
+			}
 		});
 	}
 
@@ -116,7 +120,8 @@ public class Controller implements Initializable {
 	@FXML
 	protected final void handleDocAction(ActionEvent event) {
 		// Shows github page
-		ScheduleApplication.getStaticHostServices().showDocument("https://github.com/CMPSC221/Schedule-Application/wiki");
+		ScheduleApplication.getStaticHostServices()
+				.showDocument("https://github.com/CMPSC221/Schedule-Application/wiki");
 	}
 
 	@FXML
@@ -126,6 +131,7 @@ public class Controller implements Initializable {
 		int sectionId = Integer.parseInt(editSectionId.getText().trim());
 		db.deleteSection(sectionId);
 		resetArea();
+		loadSections();
 	}
 
 	@FXML
@@ -164,6 +170,7 @@ public class Controller implements Initializable {
 		}
 		db.editSection(sectionId, editSectionName, editSectionAbb, editSectionStartTime, editSectionEndTime, days);
 		resetArea();
+		loadSections();
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Success");
 		alert.setHeaderText("Edit Success");
@@ -283,19 +290,45 @@ public class Controller implements Initializable {
 		Database db = new Database();
 		sections = db.getDataFromDBSection();
 		meetings = db.getDataFromDBMeeting();
-		System.out.println(sections.size());
-		System.out.println(meetings.size());
+		// System.out.println(sections.size());
+		// System.out.println(meetings.size());
 		sectionsTable.getItems().clear();
 
 		for (int i = 0; i < sections.size(); i++) {
 			SectionPair sectionPair = new SectionPair(sections.get(i), meetings.get(i));
 			sectionsTable.getItems().add(sectionPair);
+			/*
+			 * System.out.println(sections.get(i).getName() + " " +
+			 * sections.get(i).getAbbreviation() + " " + sections.get(i).getId()
+			 * + " "); boolean days[] = meetings.get(i).getDays();
+			 * System.out.println(meetings.get(i).getStartTime() + " " +
+			 * meetings.get(i).getStopTime() + " " + days[0] + days[1] + days[2]
+			 * + days[3] + days[4]);
+			 */
+		}
+	}
 
-			System.out.println(sections.get(i).getName() + " " + sections.get(i).getAbbreviation() + " "
-					+ sections.get(i).getId() + " ");
-			boolean days[] = meetings.get(i).getDays();
-			System.out.println(meetings.get(i).getStartTime() + " " + meetings.get(i).getStopTime() + " " + days[0]
-					+ days[1] + days[2] + days[3] + days[4]);
+	public void loadSections() {
+		// Load Data Button Action
+		// Loads all sections and meetings from db to arraylist
+		Database db = new Database();
+		sections = db.getDataFromDBSection();
+		meetings = db.getDataFromDBMeeting();
+		// System.out.println(sections.size());
+		// System.out.println(meetings.size());
+		sectionsTable.getItems().clear();
+
+		for (int i = 0; i < sections.size(); i++) {
+			SectionPair sectionPair = new SectionPair(sections.get(i), meetings.get(i));
+			sectionsTable.getItems().add(sectionPair);
+			/*
+			 * System.out.println(sections.get(i).getName() + " " +
+			 * sections.get(i).getAbbreviation() + " " + sections.get(i).getId()
+			 * + " "); boolean days[] = meetings.get(i).getDays();
+			 * System.out.println(meetings.get(i).getStartTime() + " " +
+			 * meetings.get(i).getStopTime() + " " + days[0] + days[1] + days[2]
+			 * + days[3] + days[4]);
+			 */
 		}
 	}
 
@@ -312,7 +345,7 @@ public class Controller implements Initializable {
 		}
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Save Schedule");
-		
+
 		File file = fileChooser.showSaveDialog(root.getScene().getWindow());
 		if (file != null) {
 			Exporter.export(file, schedule);
@@ -326,7 +359,29 @@ public class Controller implements Initializable {
 		for (int i = 0; i < sections.size(); i++) {
 			temp.addSection(sections.get(i), meetings.get(i));
 		}
-		temp.printSections();
+		// temp.printSections();
+		Rule instructorSchedule = new Rule.InstructorSchedule();
+		Rule instructorConflict = new Rule.InstructorConflict();
+		Rule instructorHours = new Rule.InstructorHours();
+		int is = instructorSchedule.getFitness(temp);
+		int ic = instructorConflict.getFitness(temp);
+		int ih = instructorHours.getFitness(temp);
+		if (ic != 0) {
+			int sum = is + ic + ih;
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Error");
+			alert.setHeaderText("Cannot Create Schedule");
+			alert.setContentText("There is a Time Conflict! Check your Sections Your Schedule Score is " + sum);
+			alert.showAndWait();
+			temp.reset();
+		} else {
+			int sum = is + ic + ih;
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Success");
+			alert.setHeaderText("Schedule creation sucess");
+			alert.setContentText("Success! Your Schedule Score is " + sum);
+			alert.showAndWait();
+		}
 
 	}
 
@@ -429,6 +484,7 @@ public class Controller implements Initializable {
 			alert.setContentText("Successfully Added a new course");
 			alert.showAndWait();
 		}
+		loadSections();
 		resetArea();
 	}
 

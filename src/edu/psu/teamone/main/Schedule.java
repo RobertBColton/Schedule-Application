@@ -35,4 +35,8 @@ public class Schedule {
 					+ entry.getValue().getStopTime() + " " + days[0] + days[1] + days[2] + days[3] + days[4]);
 		}
 	}
+	public void reset(){
+		this.sections.clear();
+	}
+	
 }
