@@ -1,12 +1,12 @@
 package edu.psu.teamone.main;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,14 +19,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
 public class Controller implements Initializable {
 	@FXML
 	private TabPane tabPane;
 	@FXML
-	private StackPane root;
+	private BorderPane root;
 	@FXML
 	private TextField sectionName, sectionAbb, startTime, endTime;
 	// Class and Meeting
@@ -294,6 +295,17 @@ public class Controller implements Initializable {
 			boolean days[] = meetings.get(i).getDays();
 			System.out.println(meetings.get(i).getStartTime() + " " + meetings.get(i).getStopTime() + " " + days[0]
 					+ days[1] + days[2] + days[3] + days[4]);
+		}
+	}
+
+	@FXML
+	protected final void handleExportAction(ActionEvent event) {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Save Schedule");
+		
+		File file = fileChooser.showSaveDialog(root.getScene().getWindow());
+		if (file != null) {
+
 		}
 	}
 

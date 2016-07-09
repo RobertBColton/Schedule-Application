@@ -11,7 +11,7 @@
 <?import javafx.scene.control.cell.*?> 
 <?import javafx.collections.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="edu.psu.teamone.main.Controller">
+<BorderPane fx:id="root" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="edu.psu.teamone.main.Controller">
   <center>
     <TabPane fx:id="tabPane">
       <Tab closable="false" text="%sectionsTab">
@@ -132,20 +132,13 @@
         <menus>
           <Menu text="%fileButton">
             <items>
-              <MenuItem text="%newButton" />
               <MenuItem onAction="#loadSections" text="%loadDataButton" />
               <MenuItem onAction="#createSchedule" text="%createScheduleButton" />
               <MenuItem text="%saveButton" />
               <MenuItem text="%saveAsButton" />
+              <MenuItem onAction="#handleExportAction" text="%exportButton" />
               <SeparatorMenuItem />
               <MenuItem onAction="#handleExitAction" text="%exitButton" />
-            </items>
-          </Menu>
-          <Menu text="%editButton">
-            <items>
-              <MenuItem text="%cutButton" />
-              <MenuItem text="%copyButton" />
-              <MenuItem text="%pasteButton" />
             </items>
           </Menu>
           <Menu text="%helpButton">
