@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -414,7 +413,7 @@ public class Database {
 			while (sectionRS2.next()) {
 				if (sectionRS2.getString(1).toString().equals(Integer.toString(sectionId))) {
 					sectionRS2.updateString("start time", editSectionStartTime);
-					sectionRS2.updateString("end time", editSectionEndTime);
+					sectionRS2.updateString("end time", editSectionStartTime + ":00");
 					sectionRS2.updateString("M", Character.toString(days.charAt(0)));
 					sectionRS2.updateString("T", Character.toString(days.charAt(1)));
 					sectionRS2.updateString("W", Character.toString(days.charAt(2)));
